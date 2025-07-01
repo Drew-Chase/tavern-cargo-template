@@ -1,9 +1,9 @@
 [package]
 name = "{{crate_name}}"
 version = "0.0.0"
-description = "{{project_description}}"
-authors = ["{{author}}"]
-edition = "2021"
+description = ""
+authors = ["{{authors}}"]
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

@@ -8,8 +8,6 @@ ignore = [
 ]
 
 [placeholders]
-project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
-repository = { prompt = "Enter the repository URL", default = "", type = "string" }
 app_identifier = { type = "string", prompt = "Enter the app identifier (e.g., com.yourcompany.appname)", default = "com.tauri.app" }
 window_title = { type = "string", prompt = "Enter the window title", default = "TAVERN App" }
 window_width = { type = "string", prompt = "Enter the window width", default = "800" }
