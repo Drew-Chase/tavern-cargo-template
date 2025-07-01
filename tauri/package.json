@@ -1,5 +1,5 @@
 {
-  "name": "{{project_name}}",
+  "name": "{{crate_name}}",
   "private": true,
   "version": "0.0.0",
   "description": "{{project_description}}",
