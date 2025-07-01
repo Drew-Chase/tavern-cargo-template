@@ -1,32 +1,71 @@
 # TAVERN Stack Template
 
-A cargo-generate template for creating full-stack applications with TypeScript, React, Vite, and Rust backends.
+A comprehensive cargo-generate template for creating full-stack applications with **T**ypeScript, **A**ctix/Tauri, **V**ite, **E**mbedded **R**ust, and **N**ode.js.
 
-## Template Variants
+## 🚀 Features
 
-This template provides two variants:
+- **Modern Frontend Stack**: React 18+ with TypeScript, Vite, and TailwindCSS
+- **Component Library**: HeroUI React components for beautiful UIs
+- **Theme Support**: Built-in dark/light theme switching with Framer Motion animations
+- **Development Tools**: ESLint, TypeScript, and hot-reload development
+- **Production Ready**: Optimized builds for both frontend and backend
 
-### Actix Variant
+## 📦 Template Variants
+
+### 🌐 Actix Variant
 - **Backend**: Actix-web server with REST API endpoints
-- **Frontend**: React + TypeScript + Vite + TailwindCSS
-- **Use case**: Web applications, APIs, server-side applications
+- **Frontend**: React + TypeScript + Vite + TailwindCSS + HeroUI
+- **Use case**: Web applications, REST APIs, server-side applications
+- **Features**: Static file serving, JSON APIs, embedded frontend
 
-### Tauri Variant
-- **Backend**: Tauri for desktop application development
-- **Frontend**: React + TypeScript + Vite + TailwindCSS
-- **Use case**: Cross-platform desktop applications
+### 🖥️ Tauri Variant
+- **Backend**: Tauri for cross-platform desktop applications
+- **Frontend**: React + TypeScript + Vite + TailwindCSS + HeroUI
+- **Use case**: Native desktop applications with web technologies
+- **Features**: System integration, native performance, small bundle size
 
-## Usage
+## 🛠️ Prerequisites
 
-### Prerequisites
-- [Rust](https://rustup.rs/) (latest stable)
+- [Rust](https://rustup.rs/) (latest stable, edition 2024)
 - [Node.js](https://nodejs.org/) (v18+)
 - [cargo-generate](https://github.com/cargo-generate/cargo-generate)
 
-Install cargo-generate:
+### Install cargo-generate
+
 ```bash
 cargo install cargo-generate
 ```
+
+### Additional Requirements for Tauri
+
+For the Tauri variant, you'll also need platform-specific dependencies:
+
+**Windows:**
+```bash
+# Install WebView2 (usually pre-installed on Windows 10/11)
+# Install Microsoft C++ Build Tools
+```
+
+**macOS:**
+```bash
+xcode-select --install
+```
+
+**Linux:**
+```bash
+sudo apt update
+sudo apt install libwebkit2gtk-4.0-dev \
+    build-essential \
+    curl \
+    wget \
+    file \
+    libssl-dev \
+    libgtk-3-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev
+```
+
+## 🚀 Quick Start
 
 ### Generate a New Project
 
@@ -35,103 +74,185 @@ cargo generate --git https://github.com/yourusername/tavern-cargo-template
 ```
 
 The template will prompt you for:
-- **Project name**: The name of your project
+- **Project name**: The name of your project (snake_case recommended)
 - **Project description**: Description for your project
-- **Author**: Your name
+- **Author**: Your name or organization
 - **Repository**: Repository URL (optional)
 - **Template variant**: Choose between "actix" or "tauri"
 
-#### Actix-specific prompts:
-- **API port**: Port for the web server (default: 1421)
+### Project Setup
 
-#### Tauri-specific prompts:
-- **App identifier**: Unique app identifier (e.g., com.yourcompany.appname)
-- **Window title**: Desktop application window title
-- **Window dimensions**: Width and height for the application window
-
-## Development
-
-### Actix Variant
+After generation, navigate to your project directory:
 
 ```bash
-cd your-project-name/actix
-npm install
-npm run watch  # Runs both frontend and backend in development mode
+cd your-project-name
 ```
 
-The development server will start at `http://localhost:1421` (or your configured port).
+#### For Actix Variant:
 
-Available scripts:
+1. **Install frontend dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development server:**
+   ```bash
+   # Terminal 1: Start the Rust backend with auto-reload
+   npm run watch
+   
+   # Terminal 2: Start the Vite frontend dev server
+   npm run dev
+   ```
+
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+#### For Tauri Variant:
+
+1. **Install frontend dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development:**
+   ```bash
+   npm run tauri-dev
+   ```
+
+3. **Build for production:**
+   ```bash
+   npm run tauri-build
+   ```
+
+## 📁 Project Structure
+
+### Actix Variant
+```
+your-project/
+├── src/                    # React frontend source
+│   ├── assets/
+│   │   ├── components/     # React components
+│   │   ├── css/           # Stylesheets
+│   │   ├── pages/         # Page components
+│   │   └── providers/     # Context providers
+│   ├── main.tsx           # React entry point
+│   └── vite-env.d.ts      # Vite type definitions
+├── src-actix/             # Rust backend source
+│   ├── main.rs            # Server entry point
+│   ├── lib.rs             # Library modules
+│   ├── build.rs           # Build script
+│   └── *.rs               # API endpoints and utilities
+├── package.json           # Node.js dependencies
+├── Cargo.toml            # Rust dependencies
+├── vite.config.ts        # Vite configuration
+└── tailwind.config.js    # TailwindCSS configuration
+```
+
+### Tauri Variant
+```
+your-project/
+├── src/                    # React frontend source
+│   ├── assets/
+│   │   ├── components/     # React components
+│   │   ├── css/           # Stylesheets
+│   │   ├── pages/         # Page components
+│   │   └── providers/     # Context providers
+│   ├── main.tsx           # React entry point
+│   └── vite-env.d.ts      # Vite type definitions
+├── src-tauri/             # Tauri backend source
+│   ├── src/
+│   │   ├── main.rs        # Tauri entry point
+│   │   └── lib.rs         # Tauri commands
+│   ├── Cargo.toml         # Tauri dependencies
+│   ├── tauri.conf.json    # Tauri configuration
+│   ├── capabilities/      # Tauri permissions
+│   └── icons/             # Application icons
+├── package.json           # Node.js dependencies
+├── vite.config.ts        # Vite configuration
+└── tailwind.config.js    # TailwindCSS configuration
+```
+
+## 🎨 Tech Stack
+
+### Frontend
+- **React 18+**: Modern React with hooks and functional components
+- **TypeScript**: Type-safe JavaScript development
+- **Vite**: Fast build tool and development server
+- **TailwindCSS**: Utility-first CSS framework
+- **HeroUI**: Beautiful React component library
+- **Framer Motion**: Smooth animations and transitions
+- **Iconify**: Comprehensive icon library
+
+### Backend (Actix)
+- **Actix-web**: Fast and powerful web framework
+- **Serde**: Serialization/deserialization
+- **Actix-files**: Static file serving
+- **Futures**: Async runtime utilities
+
+### Backend (Tauri)
+- **Tauri**: Secure desktop app framework
+- **Native APIs**: System integration capabilities
+- **Small Bundle**: Efficient resource usage
+
+## 🔧 Development Scripts
+
+### Actix Variant
 - `npm run dev` - Start Vite development server
-- `npm run build-frontend` - Build frontend for production
+- `npm run build-frontend` - Build React frontend
 - `npm run build-api` - Build Rust backend
 - `npm run build` - Build both frontend and backend
-- `npm run watch` - Watch mode with hot reload
+- `npm run run-api` - Run the Rust server
+- `npm run watch` - Auto-reload Rust server on changes
+- `npm run lint` - Run ESLint
 
 ### Tauri Variant
-
-```bash
-cd your-project-name/tauri
-npm install
-npm run tauri-dev  # Runs the desktop application in development mode
-```
-
-Available scripts:
 - `npm run dev` - Start Vite development server
-- `npm run build` - Build frontend for production
-- `npm run tauri-dev` - Run desktop app in development mode
-- `npm run tauri-build` - Build desktop app for production
+- `npm run build` - Build React frontend
+- `npm run tauri-dev` - Start Tauri development mode
+- `npm run tauri-build` - Build Tauri application
 
-## Project Structure
+## 🌟 Features Included
 
-### Actix Variant
-```
-actix/
-├── src-actix/          # Rust backend source
-│   ├── main.rs         # Application entry point
-│   ├── lib.rs          # Main library code
-│   ├── build.rs        # Build script
-│   └── ...             # API endpoints and modules
-├── src/                # React frontend source
-│   ├── main.tsx        # Frontend entry point
-│   └── assets/         # Components, pages, styles
-├── package.json        # Node.js dependencies and scripts
-├── Cargo.toml          # Rust dependencies
-└── vite.config.ts      # Vite configuration
-```
+- **🎨 Modern UI**: Clean, responsive design with HeroUI components
+- **🌙 Theme Support**: Dark/light mode with smooth transitions
+- **📱 Responsive**: Mobile-first responsive design
+- **⚡ Fast Development**: Hot-reload for both frontend and backend
+- **🔒 Type Safety**: Full TypeScript coverage
+- **🏗️ Production Ready**: Optimized builds and deployment configs
+- **🧪 Development Tools**: ESLint, TypeScript compiler, and more
 
-### Tauri Variant
-```
-tauri/
-├── src-tauri/          # Rust backend for Tauri
-│   ├── src/            # Tauri application code
-│   ├── Cargo.toml      # Rust dependencies
-│   ├── tauri.conf.json # Tauri configuration
-│   └── build.rs        # Build script
-├── src/                # React frontend source
-│   ├── main.tsx        # Frontend entry point
-│   └── assets/         # Components, pages, styles
-├── package.json        # Node.js dependencies and scripts
-└── vite.config.ts      # Vite configuration
-```
-
-## Tech Stack
-
-- **Frontend**: React 18, TypeScript, Vite, TailwindCSS, HeroUI
-- **Backend (Actix)**: Actix-web, Serde, Anyhow, Log
-- **Backend (Tauri)**: Tauri 2.0, Serde
-- **Development**: Hot reload, ESLint, PostCSS
-
-## Features
-
-- ✅ Hot reload for both frontend and backend
-- ✅ TypeScript support with strict configuration
-- ✅ TailwindCSS for styling
-- ✅ Modern React with functional components
-- ✅ Error handling and logging
-- ✅ Production-ready build process
-- ✅ Cross-platform support
-
-## License
+## 📝 License
 
 GPL-3.0-or-later
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📚 Documentation
+
+For more detailed documentation on the frameworks used:
+
+- [React Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Vite Documentation](https://vitejs.dev/)
+- [TailwindCSS Documentation](https://tailwindcss.com/docs)
+- [HeroUI Documentation](https://heroui.com/)
+- [Actix-web Documentation](https://actix.rs/)
+- [Tauri Documentation](https://tauri.app/)
+
+## 🚀 Getting Help
+
+- Check the [Issues](https://github.com/yourusername/tavern-cargo-template/issues) page
+- Read the documentation of the respective frameworks
+- Join the community discussions
+
+---
+
+Happy coding! 🎉
