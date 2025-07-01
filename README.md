@@ -70,7 +70,7 @@ sudo apt install libwebkit2gtk-4.0-dev \
 ### Generate a New Project
 
 ```bash
-cargo generate --git https://github.com/yourusername/tavern-cargo-template
+cargo generate --git https://github.com/drew-chase/tavern-cargo-template
 ```
 
 The template will prompt you for:
@@ -222,6 +222,20 @@ your-project/
 - **🔒 Type Safety**: Full TypeScript coverage
 - **🏗️ Production Ready**: Optimized builds and deployment configs
 - **🧪 Development Tools**: ESLint, TypeScript compiler, and more
+
+## Cargo Favorites
+You can also add this template to your Cargo favorites for easy access, add the `cargo-generate.toml` in the cargo home directory
+- Windows `%USERPROFILE%\.cargo\`
+- macOS/Linux `~/.cargo/`
+- or create a new file `~/.cargo/cargo-generate.toml` with the following content:
+```toml
+[favorites.tavern]
+description = "A cargo-generate template for creating full-stack applications with TypeScript, React, Vite, and Rust backends."
+git = "https://github.com/Drew-Chase/tavern-cargo-template"
+vcs = "Git"
+init = false
+overwrite = true
+```
 
 ## 📝 License
 
