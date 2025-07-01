@@ -16,9 +16,9 @@ const PORT: u16 = {{api_port}};
 pub async fn run() -> Result<()> {
 	pretty_env_logger::env_logger::builder()
 		.filter_level(if DEBUG {
-			log::LevelFilter::Debug
+			LevelFilter::Debug
 		} else {
-			log::LevelFilter::Info
+			LevelFilter::Info
 		})
 		.format_timestamp(None)
 		.init();
