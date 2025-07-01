@@ -1,8 +1,19 @@
 [template]
 cargo_generate_version = ">=0.10.0"
 
+[template.sub]
+# Exclude files that contain template syntax or should not be processed
+exclude = [
+    "Cargo.toml",
+    "actix/src/assets/providers/ThemeProvider.tsx",
+    "actix/src-actix/main.rs",
+    "tauri/src/assets/providers/ThemeProvider.tsx",
+    "tauri/src-tauri/icons/*.png",
+    "tauri/src-tauri/icons/*.icns",
+    "tauri/src-tauri/icons/*.ico"
+]
+
 [placeholders]
-project_name = { type = "string", prompt = "What is your project name?" }
 project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
 author = { prompt = "Enter the authors name", default = "", type = "string" }
 repository = { prompt = "Enter the repository URL", default = "", type = "string" }
@@ -13,7 +24,7 @@ api_port = { type = "string", prompt = "What port should the API server run on?"
 
 [conditional.'template_type == "tauri"'.placeholders]
 app_identifier = { type = "string", prompt = "Enter the app identifier (e.g., com.yourcompany.appname)", default = "com.tauri.app" }
-window_title = { type = "string", prompt = "Enter the window title", default = "{{project_name}}" }
+window_title = { type = "string", prompt = "Enter the window title", default = "{{crate_name}}" }
 window_width = { type = "string", prompt = "Enter the window width", default = "800" }
 window_height = { type = "string", prompt = "Enter the window height", default = "600" }
 
