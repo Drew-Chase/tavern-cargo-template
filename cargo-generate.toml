@@ -1,15 +1,6 @@
 [template]
 cargo_generate_version = ">=0.10.0"
 
-[template.sub]
-# Files to copy without any template processing
-raw = [
-    "*/src/assets/providers/ThemeProvider.tsx",
-    "*/src-actix/main.rs",
-    "*/src/assets/providers/ThemeProvider.tsx",
-    "*/src-tauri/icons/**/*"
-]
-
 [placeholders]
 project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
 author = { prompt = "Enter the authors name", default = "", type = "string" }
@@ -31,6 +22,10 @@ ignore = [
 ]
 exclude = [
     "tauri/**/*",
+]
+raw = [
+    "actix\\src\\assets\\providers\\ThemeProvider.tsx",
+    "actix\\src-actix\\main.rs",
 ]
 
 [conditional.'template_type == "tauri"']
