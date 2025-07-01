@@ -45,15 +45,12 @@
     "@tauri-apps/cli": "^2"
   },
   "engines": {
-{
-  % if package_manager == "npm" %}
-"npm": ">=10.2.3"
-{
-% elsif package_manager == "yarn" %}
-"yarn": ">=1.22.19"
-{% elsif package_manager == "pnpm" %}
-"pnpm": ">=8.13.1"
-{% endif %
-}
-}
+      {% if package_manager == "npm" %}
+      "npm": ">=10.2.3"
+      {% elsif package_manager == "yarn" %}
+      "yarn": ">=1.22.19"
+      {% elsif package_manager == "pnpm" %}
+      "pnpm": ">=8.13.1"
+      {% endif %}
+  }
 }
