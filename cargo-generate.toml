@@ -24,8 +24,8 @@ exclude = [
     "tauri/**/*",
 ]
 raw = [
-    "actix\\src\\assets\\providers\\ThemeProvider.tsx",
-    "actix\\src-actix\\main.rs",
+    "actix/src/assets/providers/ThemeProvider.tsx",
+    "actix/src-actix/main.rs",
 ]
 
 [conditional.'template_type == "tauri"']
