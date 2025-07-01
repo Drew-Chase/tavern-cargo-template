@@ -8,9 +8,7 @@ exclude = [
     "actix/src/assets/providers/ThemeProvider.tsx",
     "actix/src-actix/main.rs",
     "tauri/src/assets/providers/ThemeProvider.tsx",
-    "tauri/src-tauri/icons/*.png",
-    "tauri/src-tauri/icons/*.icns",
-    "tauri/src-tauri/icons/*.ico"
+    "tauri/src-tauri/icons/**/*"
 ]
 
 [placeholders]
