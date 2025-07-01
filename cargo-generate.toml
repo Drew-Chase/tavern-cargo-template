@@ -23,10 +23,6 @@ ignore = [
 exclude = [
     "tauri/**/*",
 ]
-raw = [
-    "actix/src/assets/providers/ThemeProvider.tsx",
-    "actix/src-actix/main.rs",
-]
 
 [conditional.'sub_template == "tauri"']
 ignore = [
