@@ -15,6 +15,11 @@
         "title": "{{window_title}}",
         "width": {{window_width}},
         "height": {{window_height}}
+      {% if custom_chrome %}
+        ,
+            "decorations": false,
+        {% endif %}
+        ],
       }
     ],
     "security": {
