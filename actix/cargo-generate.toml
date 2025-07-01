@@ -1,0 +1,11 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+ignore = [
+    "tauri/**/*",
+]
+
+[placeholders]
+project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
+author = { prompt = "Enter the authors name", default = "", type = "string" }
+repository = { prompt = "Enter the repository URL", default = "", type = "string" }
+api_port = { type = "string", prompt = "What port should the API server run on?", default = "1421" }
