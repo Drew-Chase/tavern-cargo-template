@@ -14,8 +14,14 @@ const PORT: u16 = {{api_port}};
 
 
 pub async fn run() -> Result<()> {
-	std::env::set_var("RUST_LOG", "debug");
-	env_logger::init();
+	pretty_env_logger::env_logger::builder()
+		.filter_level(if DEBUG {
+			log::LevelFilter::Debug
+		} else {
+			log::LevelFilter::Info
+		})
+		.format_timestamp(None)
+		.init();
 
 	let server = HttpServer::new(move || {
 		App::new()
