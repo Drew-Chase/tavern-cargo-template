@@ -26,11 +26,17 @@ window_width = { type = "string", prompt = "Enter the window width", default = "
 window_height = { type = "string", prompt = "Enter the window height", default = "600" }
 
 [conditional.'template_type == "actix"']
+ignore = [
+    "tauri/**/*",
+]
 exclude = [
     "tauri/**/*",
 ]
 
 [conditional.'template_type == "tauri"']
+ignore = [
+    "actix/**/*",
+]
 exclude = [
     "actix/**/*",
 ]
