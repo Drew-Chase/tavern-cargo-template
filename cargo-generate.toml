@@ -1,5 +1,6 @@
 [template]
 cargo_generate_version = ">=0.10.0"
+sub_templates = ["actix", "tauri"]
 
 [placeholders]
 project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
