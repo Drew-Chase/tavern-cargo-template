@@ -12,4 +12,4 @@ app_identifier = { type = "string", prompt = "Enter the app identifier (e.g., co
 window_title = { type = "string", prompt = "Enter the window title", default = "TAVERN App" }
 window_width = { type = "string", prompt = "Enter the window width", default = "800" }
 window_height = { type = "string", prompt = "Enter the window height", default = "600" }
-
+custom_chrome = { type = "bool", prompt = "Do you want to use custom titlebar", default = false }
