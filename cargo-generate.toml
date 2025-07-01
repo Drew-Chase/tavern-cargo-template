@@ -6,7 +6,6 @@ sub_templates = ["actix", "tauri"]
 project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
 author = { prompt = "Enter the authors name", default = "", type = "string" }
 repository = { prompt = "Enter the repository URL", default = "", type = "string" }
-sub_template = { type = "string", prompt = "Which template variant would you like?", choices = ["actix", "tauri"], default = "actix" }
 
 [conditional.'sub_template == "actix"'.placeholders]
 api_port = { type = "string", prompt = "What port should the API server run on?", default = "1421" }
