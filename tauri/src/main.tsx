@@ -38,15 +38,21 @@ export function MainContentRenderer()
                 <Navigation/>
                 {% if custom_chrome == true %}
                 <div className={"flex flex-row w-full max-h-[calc(100vh-2.5rem)] h-screen overflow-y-hidden p-0 m-0"} data-tauri-drag-region="">
-                {% else %}
-                    <div className={"flex flex-row w-full h-screen p-0 m-0"}>
-                {% endif %}
                     <Routes>
                         <Route>
                             <Route path="/" element={<Home/>}/>
                         </Route>
                     </Routes>
                 </div>
+                {% else %}
+                <div className={"flex flex-row w-full h-screen p-0 m-0"}>
+                    <Routes>
+                        <Route>
+                            <Route path="/" element={<Home/>}/>
+                        </Route>
+                    </Routes>
+                </div>
+                {% endif %}
             </main>
         </HeroUIProvider>
     );
