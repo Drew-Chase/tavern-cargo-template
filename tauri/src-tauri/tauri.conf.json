@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri",
+  "productName": "{{project_name}}",
   "version": "0.1.0",
-  "identifier": "com.tauri.app",
+  "identifier": "{{app_identifier}}",
   "build": {
     "beforeDevCommand": "npm dev",
     "devUrl": "http://localhost:1420",
@@ -12,9 +12,9 @@
   "app": {
     "windows": [
       {
-        "title": "tauri",
-        "width": 800,
-        "height": 600
+        "title": "{{window_title}}",
+        "width": {{window_width}},
+        "height": {{window_height}}
       }
     ],
     "security": {

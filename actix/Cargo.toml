@@ -1,15 +1,15 @@
 [package]
-name = "actix"
+name = "{{project_name}}"
 version = "0.0.0"
 edition = "2021"
 build = "src-actix/build.rs"
 
 [[bin]]
-name = "actix"
+name = "{{project_name}}"
 path = "src-actix/main.rs"
 
 [lib]
-name = "actix_lib"
+name = "{{project_name}}_lib"
 path = "src-actix/lib.rs"
 crate-type = ["lib"]
 

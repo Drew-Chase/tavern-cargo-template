@@ -1,6 +1,9 @@
 [workspace]
 resolver = "3"
 members = [
+{%- if template_type == "actix" %}
     "actix",
+{%- elif template_type == "tauri" %}
     "tauri/src-tauri"
+{%- endif %}
 ]

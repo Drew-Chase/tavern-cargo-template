@@ -1,19 +1,19 @@
 {
-  "name": "actix",
+  "name": "{{project_name}}",
   "private": true,
   "version": "0.0.0",
-  "description": "TAVERN Stack Template",
-  "author": "",
+  "description": "{{project_description}}",
+  "author": "{{author}}",
   "license": "GPL-3.0-or-later",
-  "repository": "",
+  "repository": "{{repository}}",
   "type": "module",
   "scripts": {
     "build-api": "cargo build --release",
-    "run-api": "cargo run --bin actix",
+    "run-api": "cargo run --bin {{project_name}}",
     "dev": "vite",
     "build-frontend": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "watch": "cargo watch -x \"run --bin actix\" -C dist -N --why -w ../src-actix/",
+    "watch": "cargo watch -x \"run --bin {{project_name}}\" -C dist -N --why -w ../src-actix/",
     "build": "npm run \"build-frontend\" && npm run \"build-api\""
   },
   "dependencies": {

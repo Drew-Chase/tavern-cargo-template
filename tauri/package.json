@@ -1,11 +1,11 @@
 {
-  "name": "tauri",
+  "name": "{{project_name}}",
   "private": true,
   "version": "0.0.0",
-  "description": "TAVERN Stack Template",
-  "author": "",
+  "description": "{{project_description}}",
+  "author": "{{author}}",
   "license": "GPL-3.0-or-later",
-  "repository": "",
+  "repository": "{{repository}}",
   "type": "module",
   "scripts": {
     "dev": "vite",

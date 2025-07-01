@@ -10,7 +10,7 @@ mod test_endpoint;
 mod http_error;
 
 pub static DEBUG: bool = cfg!(debug_assertions);
-const PORT: u16 = 1421;
+const PORT: u16 = {{api_port}};
 
 
 pub async fn run() -> Result<()> {

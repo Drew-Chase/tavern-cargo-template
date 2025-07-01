@@ -1,4 +1,28 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+
 [placeholders]
-project_description = { prompt = "Enter project description", default = "", type = "string" }
+project_name = { type = "string", prompt = "What is your project name?" }
+project_description = { prompt = "Enter project description", default = "TAVERN Stack Template", type = "string" }
 author = { prompt = "Enter the authors name", default = "", type = "string" }
 repository = { prompt = "Enter the repository URL", default = "", type = "string" }
+template_type = { type = "string", prompt = "Which template variant would you like?", choices = ["actix", "tauri"], default = "actix" }
+
+[conditional.'template_type == "actix"'.placeholders]
+api_port = { type = "string", prompt = "What port should the API server run on?", default = "1421" }
+
+[conditional.'template_type == "tauri"'.placeholders]
+app_identifier = { type = "string", prompt = "Enter the app identifier (e.g., com.yourcompany.appname)", default = "com.tauri.app" }
+window_title = { type = "string", prompt = "Enter the window title", default = "{{project_name}}" }
+window_width = { type = "string", prompt = "Enter the window width", default = "800" }
+window_height = { type = "string", prompt = "Enter the window height", default = "600" }
+
+[conditional.'template_type == "actix"']
+ignore = [
+    "tauri/**/*",
+]
+
+[conditional.'template_type == "tauri"']
+ignore = [
+    "actix/**/*",
+]
