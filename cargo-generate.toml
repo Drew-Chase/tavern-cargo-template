@@ -4,10 +4,10 @@ cargo_generate_version = ">=0.10.0"
 [template.sub]
 # Files to copy without any template processing
 raw = [
-    "actix/src/assets/providers/ThemeProvider.tsx",
-    "actix/src-actix/main.rs",
-    "tauri/src/assets/providers/ThemeProvider.tsx",
-    "tauri/src-tauri/icons/**/*"
+    "*/src/assets/providers/ThemeProvider.tsx",
+    "*/src-actix/main.rs",
+    "*/src/assets/providers/ThemeProvider.tsx",
+    "*/src-tauri/icons/**/*"
 ]
 
 [placeholders]
@@ -26,11 +26,12 @@ window_width = { type = "string", prompt = "Enter the window width", default = "
 window_height = { type = "string", prompt = "Enter the window height", default = "600" }
 
 [conditional.'template_type == "actix"']
-ignore = [
+exclude = [
     "tauri/**/*",
 ]
 
 [conditional.'template_type == "tauri"']
-ignore = [
+exclude = [
     "actix/**/*",
 ]
+
