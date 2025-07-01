@@ -11,7 +11,7 @@ export default function Navigation()
 
         <div className={"flex flex-row h-[2.5rem] backdrop-blur-sm sticky top-0 w-full z-[51] backdrop-saturate-150 select-none"} data-tauri-drag-region="">
             <div className={"flex flex-row"}>
-                <p className={"mx-2 mt-1 text-large font-bold select-none"} data-tauri-drag-region="">{{crate_name}}</p>
+                <p className={"mx-2 mt-1 text-large font-bold select-none"} data-tauri-drag-region="">{{window_title}}</p>
             </div>
             <div className={"flex flex-row ml-auto"}>
                 <ButtonGroup className={"h-[2rem]"}>
@@ -56,7 +56,7 @@ export default function Navigation()
             <NavbarContent>
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden"/>
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">tauri</p>
+                    <p className="font-bold text-inherit">{{window_title}}</p>
                 </NavbarBrand>
             </NavbarContent>
 
