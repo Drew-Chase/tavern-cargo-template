@@ -1,0 +1,4 @@
+[placeholders]
+project_description = { prompt = "Enter project description", default = "", type = "string" }
+author = { prompt = "Enter the authors name", default = "", type = "string" }
+repository = { prompt = "Enter the repository URL", default = "", type = "string" }
