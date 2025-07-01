@@ -13,3 +13,4 @@ window_title = { type = "string", prompt = "Enter the window title", default = "
 window_width = { type = "string", prompt = "Enter the window width", default = "800" }
 window_height = { type = "string", prompt = "Enter the window height", default = "600" }
 custom_chrome = { type = "bool", prompt = "Do you want to use custom titlebar", default = false }
+package_manager = { type = "string", prompt = "Choose a package manager (npm, yarn, pnpm)", default = "pnpm", choices = ["npm", "pnpm", "yarn"] }

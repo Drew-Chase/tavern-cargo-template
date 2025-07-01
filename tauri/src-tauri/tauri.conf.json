@@ -4,9 +4,17 @@
   "version": "0.1.0",
   "identifier": "{{app_identifier}}",
   "build": {
-    "beforeDevCommand": "npm dev",
     "devUrl": "http://localhost:1420",
+{% if package_manager == "npm" %}
+    "beforeDevCommand": "npm dev",
     "beforeBuildCommand": "npm build",
+{% elsif package_manager == "yarn" %}
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build",
+{% elsif package_manager == "pnpm" %}
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+{% endif %}
     "frontendDist": "../dist"
   },
   "app": {
