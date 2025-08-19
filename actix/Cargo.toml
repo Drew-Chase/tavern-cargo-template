@@ -15,19 +15,19 @@ path = "src-actix/lib.rs"
 crate-type = ["lib"]
 
 [dependencies]
-actix-web = { version = "4.9.0" }
-actix-files = { version = "0.6.6" }
-futures-util = "0.3.30"
-serde = { version = "1.0.208", features = ["derive"] }
-serde_json = { version = "1.0.125" }
-pretty_env_logger = "0.5.0"
-include_dir = "0.7.4"
-walkdir = "2.5.0"
-awc = "3.1.0"
-log = "0.4.22"
-anyhow = "1.0.95"
-thiserror = "2.0.11"
-vite-actix = "0.2.5"
+actix-web = { version = ">=4.9.0" }
+actix-files = { version = ">=0.6.6" }
+futures-util = ">=0.3.30"
+serde = { version = ">=1.0.208", features = ["derive"] }
+serde_json = { version = ">=1.0.125" }
+pretty_env_logger = ">=0.5.0"
+include_dir = ">=0.7.4"
+walkdir = ">=2.5.0"
+awc = ">=3.1.0"
+log = ">=0.4.22"
+anyhow = ">=1.0.95"
+thiserror = ">=2.0.11"
+vite-actix = ">=0.2.5"
 
 
 [build-dependencies]
