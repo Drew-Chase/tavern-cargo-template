@@ -1,6 +1,4 @@
-{% raw %}
 import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
-import $ from "jquery";
 import {Button, Tooltip} from "@heroui/react";
 import {Icon} from "@iconify-icon/react";
 
@@ -26,10 +24,9 @@ export function ThemeProvider({children}: { children: ReactNode })
     useEffect(() =>
     {
         const tmp = theme == Themes.SYSTEM ? getSystemTheme() : theme;
-        $("html")
-            .removeClass("dark")
-            .removeClass("light")
-            .addClass(tmp === Themes.DARK ? "dark" : "light");
+        const htmlElement = document.documentElement;
+        htmlElement.classList.remove("dark", "light");
+        htmlElement.classList.add(tmp === Themes.DARK ? "dark" : "light");
         localStorage.setItem("app-theme", theme.toString());
     }, [theme]);
 
@@ -83,4 +80,3 @@ export function ThemeSwitchComponent()
         </Tooltip>
     );
 }
-{% endraw %}
