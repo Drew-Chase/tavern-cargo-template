@@ -1,7 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import $ from "jquery";
 
 import "./assets/css/index.css";
 import Home from "./assets/pages/Home.tsx";
@@ -11,7 +10,7 @@ import {ThemeProvider} from "./assets/providers/ThemeProvider.tsx";
 import {HeroUIProvider} from "@heroui/react";
 
 
-ReactDOM.createRoot($("#root")[0]!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <BrowserRouter>
             <ThemeProvider>
