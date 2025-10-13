@@ -1,3 +1,4 @@
+{% raw %}
 import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
 import {Button, Tooltip} from "@heroui/react";
 import {Icon} from "@iconify-icon/react";
@@ -80,3 +81,4 @@ export function ThemeSwitchComponent()
         </Tooltip>
     );
 }
+{% endraw %}
