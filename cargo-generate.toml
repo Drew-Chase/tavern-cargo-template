@@ -1,5 +1,10 @@
 [template]
 cargo_generate_version = ">=0.10.0"
+exclude = [
+    "src-tauri/icons/**/*.png",
+    "src-tauri/icons/**/*.icns",
+    "src-tauri/icons/**/*.ico",
+]
 
 [placeholders.backend]
 type = "string"
