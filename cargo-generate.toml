@@ -4,7 +4,12 @@ exclude = [
     "src-tauri/icons/**/*.png",
     "src-tauri/icons/**/*.icns",
     "src-tauri/icons/**/*.ico",
+    ".cargo-generate-cleanup.sh",
+    ".cargo-generate-cleanup.bat",
 ]
+
+[hooks]
+post = [".cargo-generate-cleanup.bat", ".cargo-generate-cleanup.sh"]
 
 [placeholders.backend]
 type = "string"
@@ -22,73 +27,7 @@ window_width = { type = "string", prompt = "Enter the window width", default = "
 window_height = { type = "string", prompt = "Enter the window height", default = "600" }
 package_manager = { type = "string", prompt = "Choose a package manager (npm, yarn, pnpm)", default = "pnpm", choices = ["npm", "pnpm", "yarn"] }
 
-[conditional.'backend == "tauri"']
-ignore = [
-    "src-actix/**/*",
-    "server/**/*",
-    "app/**/*",
-    "routes/**/*",
-    "resources/**/*",
-    "public/**/*",
-    "bootstrap/**/*",
-    "composer.json",
-    ".env.example",
-    "Cargo-actix.toml",
-]
-
-[conditional.'backend == "actix"']
-ignore = [
-    "src-tauri/**/*",
-    "server/**/*",
-    "app/**/*",
-    "routes/**/*",
-    "resources/**/*",
-    "public/**/*",
-    "bootstrap/**/*",
-    "composer.json",
-    ".env.example",
-    "Cargo-tauri.toml",
-]
-
-[conditional.'backend == "vanilla"']
-ignore = [
-    "src-actix/**/*",
-    "src-tauri/**/*",
-    "server/**/*",
-    "app/**/*",
-    "routes/**/*",
-    "resources/**/*",
-    "public/**/*",
-    "bootstrap/**/*",
-    "composer.json",
-    ".env.example",
-    "Cargo-actix.toml",
-    "Cargo-tauri.toml",
-]
-
-[conditional.'backend == "nodejs"']
-ignore = [
-    "src-actix/**/*",
-    "src-tauri/**/*",
-    "app/**/*",
-    "routes/**/*",
-    "resources/**/*",
-    "public/**/*",
-    "bootstrap/**/*",
-    "composer.json",
-    ".env.example",
-    "Cargo-actix.toml",
-    "Cargo-tauri.toml",
-]
-
 [conditional.'backend == "php"']
-ignore = [
-    "src-actix/**/*",
-    "src-tauri/**/*",
-    "server/**/*",
-    "Cargo-actix.toml",
-    "Cargo-tauri.toml",
-]
 exclude = [
     "resources/views/**/*.blade.php",
 ]
