@@ -9,7 +9,7 @@ exclude = [
 ]
 
 [hooks]
-post = [".cargo-generate-cleanup.bat", ".cargo-generate-cleanup.sh"]
+post = [".cargo-generate-cleanup.sh"]
 
 [placeholders.backend]
 type = "string"
