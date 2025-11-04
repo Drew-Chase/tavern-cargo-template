@@ -6,6 +6,9 @@ ignore = [
     "vanilla/**/*",
     "nodejs/**/*",
 ]
+exclude = [
+    "resources/views/**/*.blade.php",
+]
 
 [placeholders]
 api_port = { type = "string", prompt = "Enter the API port", default = "8000" }
