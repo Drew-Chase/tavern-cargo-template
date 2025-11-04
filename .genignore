@@ -1,0 +1,14 @@
+# Test scripts (for repository maintenance only)
+test-generation.sh
+test-generation.bat
+test-output/
+
+# Cleanup scripts (used during generation, not needed in output)
+.cargo-generate-cleanup.rhai
+.cargo-generate-cleanup.sh
+.cargo-generate-cleanup.bat
+
+# Binary files that shouldn't be processed
+src-tauri/icons/*.png
+src-tauri/icons/*.icns
+src-tauri/icons/*.ico
