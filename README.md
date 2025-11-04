@@ -381,6 +381,31 @@ GPL-3.0-or-later
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+### Template Development
+
+If you want to contribute to the template itself, check out these guides:
+
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Complete guide for template developers
+  - Template structure and mechanics
+  - Liquid templating syntax
+  - Adding new backend variants
+  - Modifying shared frontend
+  - Development workflow
+
+- **[TESTING.md](TESTING.md)** - Testing the template generation
+  - Automated testing scripts
+  - Manual testing procedures
+  - Testing individual variants
+  - Validation checklist
+  - CI/CD testing setup
+
+- **[PACKAGING.md](PACKAGING.md)** - Publishing and distribution
+  - Version management
+  - Publishing to GitHub
+  - Release process
+  - Maintenance guidelines
+  - Distribution methods
+
 ## 📚 Documentation
 
 For more detailed documentation on the frameworks used:
