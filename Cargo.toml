@@ -1,0 +1,51 @@
+{% if backend == "actix" -%}
+[package]
+name = "{{crate_name}}"
+version = "0.1.0"
+edition = "2024"
+description = "{{project_description}}"
+authors = ["{{authors}}"]
+license = "GPL-3.0-or-later"
+repository = "{{repository}}"
+
+[dependencies]
+actix-web = "4"
+actix-files = "0.6.6"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+env_logger = "0.11.6"
+log = "0.4.22"
+futures = "0.3.31"
+
+[dev-dependencies]
+vite-actix = "0.3.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+{%- elsif backend == "tauri" -%}
+[package]
+name = "{{crate_name}}"
+version = "0.1.0"
+description = "{{project_description}}"
+authors = ["{{authors}}"]
+repository = "{{repository}}"
+edition = "2024"
+
+[lib]
+name = "{{crate_name | snake_case}}_lib"
+crate-type = ["staticlib", "cdylib", "lib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+{%- endif %}

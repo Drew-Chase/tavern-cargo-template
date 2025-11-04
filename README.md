@@ -4,9 +4,12 @@ A comprehensive cargo-generate template for creating full-stack applications wit
 
 ## 🚀 Features
 
+- **Single Unified Template**: No code duplication - one frontend codebase for all backends
 - **Modern Frontend Stack**: React 18+ with TypeScript, Vite, and TailwindCSS
 - **Component Library**: HeroUI React components for beautiful UIs
-- **Theme Support**: Built-in dark/light theme switching with Framer Motion animations
+- **Theme Support**: Built-in dark/light/system theme switching with Framer Motion animations
+- **5 Backend Options**: Choose Actix, Tauri, Vanilla, Node.js, or PHP at generation time
+- **Conditional Generation**: Only generates files needed for your chosen backend
 - **Development Tools**: ESLint, TypeScript, and hot-reload development
 - **Production Ready**: Optimized builds for both frontend and backend
 
@@ -107,8 +110,10 @@ The template will prompt you for:
 - **Project description**: Description for your project
 - **Author**: Your name or organization
 - **Repository**: Repository URL (optional)
-- **Template variant**: Choose from "actix", "tauri", "vanilla", "nodejs", or "php"
-- **Variant-specific options**: Port numbers, package managers, etc. (varies by template)
+- **Backend**: Choose from "actix", "tauri", "vanilla", "nodejs", or "php"
+- **Backend-specific options**: Port numbers (actix/nodejs/php), app config (tauri), etc.
+
+**Note**: The template uses conditional generation - only the files needed for your chosen backend will be included in the generated project. No unnecessary files or duplication!
 
 ### Project Setup
 
@@ -222,72 +227,54 @@ cd your-project-name
 
 ## 📁 Project Structure
 
-### Shared Frontend Structure (All Variants)
-All templates share the same React frontend structure with:
-- **src/assets/css/** - Stylesheets with Roboto font and custom theme
-- **src/assets/components/** - React components (Navigation, etc.)
-- **src/assets/pages/** - Page components (Home, About)
-- **src/assets/providers/** - Context providers (ThemeProvider)
-- **src/main.tsx** - React entry point
-- **Configuration files** - ESLint, TypeScript, TailwindCSS, PostCSS
+### Unified Template Structure
+The template uses a **single unified structure** with conditional file inclusion. When you generate a project, only the files needed for your chosen backend are included:
 
-### Actix Variant
+**Common Frontend (Always Included)**:
 ```
 your-project/
-├── src/                    # Shared React frontend
-├── src-actix/             # Rust backend
-│   ├── main.rs            # Server entry point
-│   ├── lib.rs             # API routes
-│   └── *.rs               # Endpoints
-├── package.json
-├── Cargo.toml
-└── vite.config.ts
+├── src/                         # React frontend (always included)
+│   ├── assets/
+│   │   ├── components/          # Navigation, etc.
+│   │   ├── css/                 # Roboto font + theme
+│   │   ├── pages/               # Home, About
+│   │   └── providers/           # ThemeProvider
+│   └── main.tsx                 # Entry point
+├── index.html                   # HTML template
+├── package.json                 # Dependencies (conditional)
+├── vite.config.ts               # Vite config (conditional)
+├── tailwind.config.js           # Tailwind config
+├── tsconfig.json                # TypeScript config
+├── .eslintrc.cjs                # ESLint config
+└── postcss.config.js            # PostCSS config
 ```
 
-### Tauri Variant
+**Backend-Specific Files (Conditionally Included)**:
+
+- **Actix**: `src-actix/`, `Cargo.toml`
+- **Tauri**: `src-tauri/`, `Cargo.toml`
+- **Vanilla**: *(no backend files)*
+- **Node.js**: `server/`
+- **PHP**: `app/`, `routes/`, `resources/`, `public/`, `bootstrap/`, `composer.json`, `.env.example`
+
+### Example: Generated Actix Project
 ```
-your-project/
-├── src/                    # Shared React frontend
-├── src-tauri/             # Tauri backend
-│   ├── src/
-│   │   ├── main.rs        # Tauri entry
-│   │   └── lib.rs         # Commands
-│   ├── Cargo.toml
-│   └── tauri.conf.json
-├── package.json
-└── vite.config.ts
+my-actix-app/
+├── src/                    # React frontend
+├── src-actix/             # Actix backend (included)
+├── Cargo.toml             # Rust config
+├── package.json           # With actix scripts
+└── vite.config.ts         # With actix proxy
+# Note: No src-tauri/, server/, app/, etc.
 ```
 
-### Vanilla Variant
+### Example: Generated Vanilla Project
 ```
-your-project/
-├── src/                    # Shared React frontend
-├── package.json
-├── vite.config.ts
-└── index.html
-```
-
-### Node.js Variant
-```
-your-project/
-├── src/                    # Shared React frontend
-├── server/                # Express backend
-│   └── index.js           # Server entry
-├── package.json
-└── vite.config.ts
-```
-
-### PHP Variant
-```
-your-project/
-├── src/                    # Shared React frontend
-├── app/                   # Laravel app
-├── routes/                # API routes
-├── resources/views/       # Blade views
-├── public/                # Public assets
-├── composer.json
-├── package.json
-└── vite.config.ts
+my-vanilla-app/
+├── src/                    # React frontend
+├── package.json           # Minimal deps
+└── vite.config.ts         # Basic config
+# Note: No backend directories at all
 ```
 
 ## 🎨 Tech Stack
@@ -364,9 +351,9 @@ your-project/
 - **🔒 Type Safety**: Full TypeScript coverage
 - **🏗️ Production Ready**: Optimized builds and deployment configs
 - **🧪 Development Tools**: ESLint, TypeScript compiler, and more
-- **🔄 Shared Frontend**: All templates (except Tauri) use identical React frontend
-- **🎯 Multiple Backends**: Choose the backend that fits your needs
-- **📦 Easy Maintenance**: Update frontend once, propagates to all templates
+- **🔄 Zero Duplication**: Single frontend codebase - no copied files between backends
+- **🎯 Smart Generation**: Conditionally includes only what your backend needs
+- **📦 Easy Maintenance**: Update once, all backends benefit from changes
 
 ## Cargo Favorites
 You can also add this template to your Cargo favorites for easy access, add the `cargo-generate.toml` in the cargo home directory

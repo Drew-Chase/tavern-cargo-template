@@ -1,8 +1,0 @@
-[template]
-cargo_generate_version = ">=0.10.0"
-ignore = [
-    "tauri/**/*",
-]
-
-[placeholders]
-api_port = { type = "string", prompt = "What port should the API server run on?", default = "1421" }
