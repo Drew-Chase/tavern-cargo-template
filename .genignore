@@ -3,12 +3,9 @@ test-generation.sh
 test-generation.bat
 test-output/
 
-# Cleanup scripts (used during generation, not needed in output)
-.cargo-generate-cleanup.rhai
+# Cleanup scripts (manual scripts, not used during generation)
 .cargo-generate-cleanup.sh
 .cargo-generate-cleanup.bat
 
-# Binary files that shouldn't be processed
-src-tauri/icons/*.png
-src-tauri/icons/*.icns
-src-tauri/icons/*.ico
+# Note: .cargo-generate-cleanup.rhai is NOT ignored because it needs to run as a post-hook
+# It will be automatically removed by cargo-generate after execution
