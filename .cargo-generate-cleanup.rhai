@@ -64,3 +64,5 @@ if backend == "actix" {
     file::delete("server");
     file::delete("Cargo.toml");
 }
+
+// README.md is now the project-specific readme (no swap needed)

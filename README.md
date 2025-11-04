@@ -1,89 +1,165 @@
-# TAVERN Stack Template
+# {{crate_name}}
 
-A comprehensive cargo-generate template for creating full-stack applications with **T**ypeScript, **A**ctix/Tauri, **V**ite, **E**mbedded **R**ust, and **N**ode.js. Choose from multiple backend options: Actix-web (Rust), Tauri (Desktop), Vanilla (React-only), Node.js/Express, or PHP/Laravel.
+{{project_description}}
 
-## 🚀 Features
+{% if backend == "actix" -%}
+A full-stack web application built with **Actix-web** (Rust) backend and **React + TypeScript** frontend.
 
-- **Single Unified Template**: No code duplication - one frontend codebase for all backends
-- **Modern Frontend Stack**: React 18+ with TypeScript, Vite, and TailwindCSS
-- **Component Library**: HeroUI React components for beautiful UIs
-- **Theme Support**: Built-in dark/light/system theme switching with Framer Motion animations
-- **5 Backend Options**: Choose Actix, Tauri, Vanilla, Node.js, or PHP at generation time
-- **Conditional Generation**: Only generates files needed for your chosen backend
-- **Development Tools**: ESLint, TypeScript, and hot-reload development
-- **Production Ready**: Optimized builds for both frontend and backend
+## 🚀 Tech Stack
 
-## 📦 Template Variants
+**Frontend:**
+- React 18+ with TypeScript
+- Vite for fast development and optimized builds
+- TailwindCSS for styling
+- HeroUI component library
+- Framer Motion for animations
 
-All templates use the **shared frontend stack**: React + TypeScript + Vite + TailwindCSS + HeroUI with built-in theme switching and responsive design.
+**Backend:**
+- Actix-web (Rust) - High-performance web framework
+- Serde for JSON serialization
+- Static file serving with embedded frontend
 
-### 🌐 Actix Variant
-- **Backend**: Actix-web (Rust) server with REST API endpoints
-- **Use case**: High-performance web applications, REST APIs, server-side applications
-- **Features**: Static file serving, JSON APIs, embedded frontend, blazing-fast performance
-- **Port**: Configurable (default: 1421)
+## 📋 Prerequisites
 
-### 🖥️ Tauri Variant
-- **Backend**: Tauri for cross-platform desktop applications
-- **Use case**: Native desktop applications with web technologies
-- **Features**: System integration, native performance, small bundle size, secure
-- **Platform**: Windows, macOS, Linux
-
-### ⚡ Vanilla Variant
-- **Backend**: None (frontend only)
-- **Use case**: SPAs, static sites, frontend-only applications, prototyping
-- **Features**: Pure React application with Vite dev server
-- **Port**: 5173 (Vite default)
-
-### 🟢 Node.js Variant
-- **Backend**: Express.js (Node.js) server with REST API endpoints
-- **Use case**: Node.js web applications, JavaScript-based backends, rapid development
-- **Features**: Express server, API routing, concurrent dev servers, production static serving
-- **Port**: Configurable (default: 3001)
-
-### 🐘 PHP Variant
-- **Backend**: Laravel (PHP) framework with Vite integration
-- **Use case**: PHP web applications, Laravel-based projects, enterprise applications
-- **Features**: Laravel routing, API endpoints, Blade integration, Laravel Vite plugin
-- **Port**: Configurable (default: 8000)
-
-## 🛠️ Prerequisites
-
-### All Variants
+- [Rust](https://rustup.rs/) (latest stable)
 - [Node.js](https://nodejs.org/) (v18+)
-- [cargo-generate](https://github.com/cargo-generate/cargo-generate)
+- [pnpm](https://pnpm.io/), npm, or yarn
 
-### Variant-Specific Requirements
+## 🛠️ Development
 
-#### Actix & Tauri Variants
-- [Rust](https://rustup.rs/) (latest stable, edition 2024)
-
-#### PHP Variant
-- [PHP](https://www.php.net/) (v8.2+)
-- [Composer](https://getcomposer.org/)
-
-### Install cargo-generate
+### Install Dependencies
 
 ```bash
-cargo install cargo-generate
+# Install Node.js dependencies
+npm install
+# or
+pnpm install
+# or
+yarn install
 ```
 
-### Additional Requirements for Tauri
+### Run Development Servers
 
-For the Tauri variant, you'll also need platform-specific dependencies:
+You'll need two terminal windows:
+
+**Terminal 1 - Backend (with auto-reload):**
+```bash
+npm run watch
+# or
+cargo watch -q -c -w src-actix/ -x run
+```
+
+**Terminal 2 - Frontend:**
+```bash
+npm run dev
+```
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:{{api_port}}
+
+The frontend dev server proxies API requests to the backend.
+
+## 🧪 Testing
+
+```bash
+# Run Rust tests
+cargo test
+
+# Run frontend tests (if configured)
+npm test
+
+# Check Rust code
+cargo check
+
+# Lint frontend
+npm run lint
+```
+
+## 📦 Building for Production
+
+### Build Everything
+
+```bash
+npm run build
+```
+
+This command:
+1. Builds the frontend (`npm run build-frontend`)
+   - Compiles TypeScript
+   - Bundles with Vite
+   - Outputs to `dist/`
+2. Builds the backend (`npm run build-api`)
+   - Compiles Rust in release mode with optimizations
+   - Embeds frontend assets into binary
+
+### Build Output
+
+**Backend binary:** `target/release/{{crate_name}}` (or `{{crate_name}}.exe` on Windows)
+
+**Frontend assets:** Embedded in the backend binary
+
+### Run Production Build
+
+```bash
+# The binary includes the frontend
+./target/release/{{crate_name}}
+
+# Or on Windows
+.\target\release\{{crate_name}}.exe
+```
+
+Visit http://localhost:{{api_port}}
+
+### Deployment
+
+The `target/release/{{crate_name}}` binary is self-contained and can be deployed anywhere:
+
+```bash
+# Copy binary to server
+scp target/release/{{crate_name}} user@server:/opt/app/
+
+# Run on server
+./{{crate_name}}
+```
+
+Configure the port via environment variable or modify `src-actix/main.rs`.
+
+{%- elsif backend == "tauri" -%}
+A cross-platform desktop application built with **Tauri** (Rust) and **React + TypeScript** frontend.
+
+## 🚀 Tech Stack
+
+**Frontend:**
+- React 18+ with TypeScript
+- Vite for fast development
+- TailwindCSS for styling
+- HeroUI component library
+- Framer Motion for animations
+
+**Backend:**
+- Tauri 2.0 - Secure desktop app framework
+- Rust for native functionality
+- Native system APIs
+
+## 📋 Prerequisites
+
+- [Rust](https://rustup.rs/) (latest stable)
+- [Node.js](https://nodejs.org/) (v18+)
+- [pnpm](https://pnpm.io/) (recommended), npm, or yarn
+- Platform-specific dependencies (see below)
+
+### Platform-Specific Setup
 
 **Windows:**
-```bash
-# Install WebView2 (usually pre-installed on Windows 10/11)
-# Install Microsoft C++ Build Tools
-```
+- WebView2 (usually pre-installed on Windows 10/11)
+- Microsoft C++ Build Tools
 
 **macOS:**
 ```bash
 xcode-select --install
 ```
 
-**Linux:**
+**Linux (Ubuntu/Debian):**
 ```bash
 sudo apt update
 sudo apt install libwebkit2gtk-4.0-dev \
@@ -97,318 +173,693 @@ sudo apt install libwebkit2gtk-4.0-dev \
     librsvg2-dev
 ```
 
-## 🚀 Quick Start
+## 🛠️ Development
 
-### Generate a New Project
-
-```bash
-cargo generate --git https://github.com/drew-chase/tavern-cargo-template
-```
-
-The template will prompt you for:
-- **Project name**: The name of your project (snake_case recommended)
-- **Project description**: Description for your project
-- **Author**: Your name or organization
-- **Repository**: Repository URL (optional)
-- **Backend**: Choose from "actix", "tauri", "vanilla", "nodejs", or "php"
-- **Backend-specific options**: Port numbers (actix/nodejs/php), app config (tauri), etc.
-
-**Note**: The template uses conditional generation - only the files needed for your chosen backend will be included in the generated project. No unnecessary files or duplication!
-
-### Project Setup
-
-After generation, navigate to your project directory:
+### Install Dependencies
 
 ```bash
-cd your-project-name
+npm install
+# or
+pnpm install
+# or
+yarn install
 ```
 
-#### For Actix Variant:
+### Run Development
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+```bash
+npm run tauri-dev
+```
 
-2. **Start development servers:**
-   ```bash
-   # Terminal 1: Start the Rust backend with auto-reload
-   npm run watch
+This starts both the frontend dev server and opens the Tauri window.
 
-   # Terminal 2: Start the Vite frontend dev server
-   npm run dev
-   ```
+## 🧪 Testing
 
-3. **Build for production:**
-   ```bash
-   npm run build
-   ```
+```bash
+# Run Rust tests
+cd src-tauri
+cargo test
 
-#### For Tauri Variant:
+# Run frontend tests (if configured)
+npm test
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+# Lint frontend
+npm run lint
+```
 
-2. **Start development:**
-   ```bash
-   npm run tauri-dev
-   ```
+## 📦 Building for Production
 
-3. **Build for production:**
-   ```bash
-   npm run tauri-build
-   ```
+### Build Application
 
-#### For Vanilla Variant:
+```bash
+npm run tauri-build
+```
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+This command:
+1. Builds the frontend in production mode
+2. Compiles the Rust backend
+3. Packages everything into platform-specific installers
 
-2. **Start development:**
-   ```bash
-   npm run dev
-   ```
+### Build Output
 
-3. **Build for production:**
-   ```bash
-   npm run build
-   ```
+**Location:** `src-tauri/target/release/bundle/`
 
-#### For Node.js Variant:
+**Platform-specific builds:**
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+- **Windows:**
+  - `msi/{{crate_name}}_*_x64_en-US.msi` - Windows Installer
+  - `nsis/{{crate_name}}_*_x64-setup.exe` - NSIS Installer
 
-2. **Start development:**
-   ```bash
-   # Runs both frontend and backend concurrently
-   npm run dev
-   ```
+- **macOS:**
+  - `macos/{{crate_name}}.app` - Application bundle
+  - `dmg/{{crate_name}}_*_x64.dmg` - DMG installer
 
-3. **Build and start production:**
-   ```bash
-   npm run build
-   npm start
-   ```
+- **Linux:**
+  - `deb/{{crate_name}}_*_amd64.deb` - Debian package
+  - `appimage/{{crate_name}}_*_amd64.AppImage` - AppImage
 
-#### For PHP Variant:
+### Development Binary
 
-1. **Install dependencies:**
-   ```bash
-   composer install
-   npm install
-   ```
+**Location:** `src-tauri/target/release/{{crate_name}}`
 
-2. **Setup environment:**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+```bash
+# Run the development binary directly
+./src-tauri/target/release/{{crate_name}}
+```
 
-3. **Start development:**
-   ```bash
-   # Terminal 1: Start Laravel server
-   php artisan serve
+### Deployment
 
-   # Terminal 2: Start Vite dev server
-   npm run dev
-   ```
+Distribute the appropriate installer for each platform from `src-tauri/target/release/bundle/`.
 
-4. **Build for production:**
-   ```bash
-   npm run build
-   ```
+Users simply install the application like any native app.
+
+{%- elsif backend == "vanilla" -%}
+A modern single-page application built with **React + TypeScript** and **Vite**.
+
+## 🚀 Tech Stack
+
+- React 18+ with TypeScript
+- Vite for fast development and optimized builds
+- TailwindCSS for styling
+- HeroUI component library
+- Framer Motion for animations
+- React Router for navigation
+
+## 📋 Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+)
+- npm, [pnpm](https://pnpm.io/), or yarn
+
+## 🛠️ Development
+
+### Install Dependencies
+
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+Visit http://localhost:5173
+
+The dev server includes:
+- Hot Module Replacement (HMR)
+- Fast refresh for React
+- TypeScript checking
+- Automatic browser reload
+
+## 🧪 Testing
+
+```bash
+# Run tests (if configured)
+npm test
+
+# Type checking
+npx tsc --noEmit
+
+# Lint code
+npm run lint
+```
+
+## 📦 Building for Production
+
+### Build Application
+
+```bash
+npm run build
+```
+
+This command:
+1. Compiles TypeScript
+2. Bundles and optimizes assets with Vite
+3. Minifies code for production
+
+### Build Output
+
+**Location:** `dist/`
+
+**Contents:**
+- `dist/index.html` - Main HTML file
+- `dist/assets/` - Bundled JavaScript, CSS, and assets
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+Visit http://localhost:4173
+
+### Deployment
+
+Deploy the contents of the `dist/` directory to any static hosting service:
+
+#### Netlify
+```bash
+# Install Netlify CLI
+npm install -g netlify-cli
+
+# Deploy
+netlify deploy --prod --dir=dist
+```
+
+#### Vercel
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel --prod
+```
+
+#### GitHub Pages
+```bash
+# Add to package.json scripts:
+"deploy": "vite build && gh-pages -d dist"
+
+# Deploy
+npm run deploy
+```
+
+#### Traditional Hosting
+Upload the `dist/` directory contents to your web server's public folder.
+
+{%- elsif backend == "nodejs" -%}
+A full-stack web application built with **Express.js** (Node.js) backend and **React + TypeScript** frontend.
+
+## 🚀 Tech Stack
+
+**Frontend:**
+- React 18+ with TypeScript
+- Vite for fast development and optimized builds
+- TailwindCSS for styling
+- HeroUI component library
+- Framer Motion for animations
+
+**Backend:**
+- Express.js - Fast, minimalist web framework
+- Node.js runtime
+- Static file serving
+
+## 📋 Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+)
+- npm, [pnpm](https://pnpm.io/), or yarn
+
+## 🛠️ Development
+
+### Install Dependencies
+
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+### Run Development Servers
+
+**Run both frontend and backend concurrently:**
+```bash
+npm run dev
+```
+
+This starts:
+- Frontend dev server: http://localhost:5173
+- Backend API server: http://localhost:{{api_port}}
+
+**Or run separately:**
+
+**Terminal 1 - Backend:**
+```bash
+npm run dev:backend
+```
+
+**Terminal 2 - Frontend:**
+```bash
+npm run dev:frontend
+```
+
+## 🧪 Testing
+
+```bash
+# Run tests (if configured)
+npm test
+
+# Type checking
+npx tsc --noEmit
+
+# Lint code
+npm run lint
+
+# Test backend endpoints
+curl http://localhost:{{api_port}}/api/hello
+```
+
+## 📦 Building for Production
+
+### Build Frontend
+
+```bash
+npm run build
+```
+
+This compiles TypeScript and bundles the frontend with Vite.
+
+### Build Output
+
+**Frontend:** `dist/`
+- `dist/index.html` - Main HTML file
+- `dist/assets/` - Bundled JavaScript, CSS, and assets
+
+**Backend:** `server/index.js` (no build needed for Node.js)
+
+### Run Production Server
+
+```bash
+npm start
+```
+
+This runs the Express server which:
+- Serves the built frontend from `dist/`
+- Provides API endpoints
+- Listens on http://localhost:{{api_port}}
+
+### Environment Configuration
+
+Create a `.env` file for production settings:
+
+```bash
+PORT={{api_port}}
+NODE_ENV=production
+```
+
+### Deployment
+
+#### Deploy to Heroku
+```bash
+# Install Heroku CLI
+# Login and create app
+heroku create
+
+# Deploy
+git push heroku master
+
+# Set environment variables
+heroku config:set NODE_ENV=production
+```
+
+#### Deploy to Railway
+```bash
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login and deploy
+railway login
+railway up
+```
+
+#### Deploy to VPS
+```bash
+# Build frontend
+npm run build
+
+# Copy files to server
+scp -r dist/ server/ package*.json user@server:/opt/app/
+
+# On server
+cd /opt/app
+npm install --production
+npm start
+```
+
+#### Using PM2 (Process Manager)
+```bash
+# Install PM2
+npm install -g pm2
+
+# Start application
+pm2 start npm --name "{{crate_name}}" -- start
+
+# Save process list
+pm2 save
+
+# Setup startup script
+pm2 startup
+```
+
+{%- elsif backend == "php" -%}
+A full-stack web application built with **Laravel** (PHP) framework and **React + TypeScript** frontend.
+
+## 🚀 Tech Stack
+
+**Frontend:**
+- React 18+ with TypeScript
+- Vite for fast development and optimized builds
+- TailwindCSS for styling
+- HeroUI component library
+- Framer Motion for animations
+- Laravel Vite Plugin for seamless integration
+
+**Backend:**
+- Laravel 11 - Modern PHP framework
+- PHP 8.2+
+- Laravel routing and API support
+
+## 📋 Prerequisites
+
+- [PHP](https://www.php.net/) (v8.2+)
+- [Composer](https://getcomposer.org/)
+- [Node.js](https://nodejs.org/) (v18+)
+- npm, [pnpm](https://pnpm.io/), or yarn
+
+### PHP Extensions Required
+
+Ensure these extensions are enabled in your `php.ini`:
+- `extension=openssl`
+- `extension=pdo_mysql` (or your database driver)
+- `extension=mbstring`
+- `extension=tokenizer`
+- `extension=xml`
+- `extension=ctype`
+- `extension=json`
+- `extension=bcmath`
+
+## 🛠️ Development
+
+### Install Dependencies
+
+```bash
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+### Setup Environment
+
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+
+# Configure database in .env
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE={{crate_name}}
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# Run migrations (if you have any)
+php artisan migrate
+```
+
+### Run Development Servers
+
+You'll need two terminal windows:
+
+**Terminal 1 - Laravel Backend:**
+```bash
+php artisan serve
+```
+
+**Terminal 2 - Vite Frontend:**
+```bash
+npm run dev
+```
+
+- Application: http://localhost:{{api_port}}
+- Vite dev server: http://localhost:5173 (auto-proxied by Laravel)
+
+## 🧪 Testing
+
+```bash
+# Run PHP tests
+php artisan test
+# or
+./vendor/bin/phpunit
+
+# Run frontend tests (if configured)
+npm test
+
+# Check PHP syntax
+composer check
+# or
+./vendor/bin/phpstan analyse
+
+# Lint frontend
+npm run lint
+
+# Format PHP code (using Laravel Pint)
+./vendor/bin/pint
+```
+
+## 📦 Building for Production
+
+### Build Frontend Assets
+
+```bash
+npm run build
+```
+
+This command:
+1. Compiles TypeScript
+2. Bundles and optimizes assets with Vite
+3. Outputs versioned assets with manifest
+
+### Build Output
+
+**Frontend assets:** `public/build/`
+- `public/build/manifest.json` - Asset manifest for Laravel
+- `public/build/assets/` - Compiled JavaScript, CSS, fonts, images
+
+**Backend:** No compilation needed (PHP is interpreted)
+
+### Prepare for Production
+
+```bash
+# Optimize autoloader
+composer install --optimize-autoloader --no-dev
+
+# Cache configuration
+php artisan config:cache
+
+# Cache routes
+php artisan route:cache
+
+# Cache views
+php artisan view:cache
+
+# Optimize
+php artisan optimize
+```
+
+### Environment Configuration
+
+Update `.env` for production:
+
+```bash
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://yourdomain.com
+
+# Set secure APP_KEY
+php artisan key:generate
+```
+
+### Deployment
+
+#### Deploy to Shared Hosting
+
+```bash
+# Build assets locally
+npm run build
+
+# Upload files to server
+# - All files except: .env, node_modules/, vendor/, storage/
+# - Make sure storage/ and bootstrap/cache/ are writable
+
+# On server, install dependencies
+composer install --optimize-autoloader --no-dev
+
+# Set permissions
+chmod -R 755 storage bootstrap/cache
+```
+
+#### Deploy to VPS (with Nginx)
+
+```bash
+# On server
+cd /var/www/{{crate_name}}
+
+# Pull latest code
+git pull origin main
+
+# Install dependencies
+composer install --no-dev --optimize-autoloader
+npm install
+npm run build
+
+# Run migrations
+php artisan migrate --force
+
+# Clear and cache
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Restart services
+sudo systemctl restart php8.2-fpm
+sudo systemctl reload nginx
+```
+
+**Nginx Configuration Example:**
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+    root /var/www/{{crate_name}}/public;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+```
+
+#### Deploy to Laravel Forge
+
+Laravel Forge handles most of this automatically:
+1. Connect your repository
+2. Configure environment variables
+3. Set deployment script:
+```bash
+cd /home/forge/{{crate_name}}
+git pull origin main
+composer install --no-dev --optimize-autoloader
+npm install
+npm run build
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan queue:restart
+```
+
+#### Deploy to Laravel Vapor (Serverless)
+
+```bash
+# Install Vapor CLI
+composer require laravel/vapor-cli
+
+# Deploy
+vapor deploy production
+```
+
+{%- endif %}
 
 ## 📁 Project Structure
 
-### Unified Template Structure
-The template uses a **single unified structure** with conditional file inclusion. When you generate a project, only the files needed for your chosen backend are included:
-
-**Common Frontend (Always Included)**:
 ```
-your-project/
-├── src/                         # React frontend (always included)
+{{crate_name}}/
+├── src/                    # React frontend source
 │   ├── assets/
-│   │   ├── components/          # Navigation, etc.
-│   │   ├── css/                 # Roboto font + theme
-│   │   ├── pages/               # Home, About
-│   │   └── providers/           # ThemeProvider
-│   └── main.tsx                 # Entry point
-├── index.html                   # HTML template
-├── package.json                 # Dependencies (conditional)
-├── vite.config.ts               # Vite config (conditional)
-├── tailwind.config.js           # Tailwind config
-├── tsconfig.json                # TypeScript config
-├── .eslintrc.cjs                # ESLint config
-└── postcss.config.js            # PostCSS config
+│   │   ├── components/    # UI components
+│   │   ├── css/           # Styles
+│   │   ├── pages/         # Page components
+│   │   └── providers/     # Context providers
+│   └── main.tsx           # Frontend entry point
+{% if backend == "actix" -%}
+├── src-actix/             # Actix-web backend
+│   ├── main.rs           # Backend entry point
+│   └── test_endpoint.rs  # Example API endpoint
+├── Cargo.toml            # Rust dependencies
+{% elsif backend == "tauri" -%}
+├── src-tauri/            # Tauri application
+│   ├── src/              # Rust backend code
+│   ├── icons/            # Application icons
+│   ├── Cargo.toml        # Rust dependencies
+│   └── tauri.conf.json   # Tauri configuration
+├── Cargo.toml            # Workspace configuration
+{% elsif backend == "nodejs" -%}
+├── server/               # Express backend
+│   └── index.js         # Backend entry point
+{% elsif backend == "php" -%}
+├── app/                  # Laravel application code
+├── routes/               # Laravel routes
+├── resources/            # Blade views and resources
+├── public/               # Public directory (web root)
+├── bootstrap/            # Laravel bootstrap
+├── composer.json         # PHP dependencies
+{% endif -%}
+├── package.json          # Node.js dependencies
+├── vite.config.ts        # Vite configuration
+├── tsconfig.json         # TypeScript configuration
+├── tailwind.config.js    # TailwindCSS configuration
+└── README.md             # This file
 ```
 
-**Backend-Specific Files (Conditionally Included)**:
+## 🎨 Features
 
-- **Actix**: `src-actix/`, `Cargo.toml`
-- **Tauri**: `src-tauri/`, `Cargo.toml`
-- **Vanilla**: *(no backend files)*
-- **Node.js**: `server/`
-- **PHP**: `app/`, `routes/`, `resources/`, `public/`, `bootstrap/`, `composer.json`, `.env.example`
-
-### Example: Generated Actix Project
-```
-my-actix-app/
-├── src/                    # React frontend
-├── src-actix/             # Actix backend (included)
-├── Cargo.toml             # Rust config
-├── package.json           # With actix scripts
-└── vite.config.ts         # With actix proxy
-# Note: No src-tauri/, server/, app/, etc.
-```
-
-### Example: Generated Vanilla Project
-```
-my-vanilla-app/
-├── src/                    # React frontend
-├── package.json           # Minimal deps
-└── vite.config.ts         # Basic config
-# Note: No backend directories at all
-```
-
-## 🎨 Tech Stack
-
-### Frontend (Shared Across All Templates)
-- **React 18+**: Modern React with hooks and functional components
-- **TypeScript**: Type-safe JavaScript development
-- **Vite**: Fast build tool and development server
-- **TailwindCSS**: Utility-first CSS framework
-- **HeroUI**: Beautiful React component library
-- **Framer Motion**: Smooth animations and transitions
-- **Iconify**: Comprehensive icon library
-- **React Router**: Client-side routing
-
-### Backend Options
-
-#### Actix (Rust)
-- **Actix-web**: Fast and powerful web framework
-- **Serde**: Serialization/deserialization
-- **Actix-files**: Static file serving
-- **Embedded frontend**: Built into binary
-
-#### Tauri (Desktop)
-- **Tauri**: Secure desktop app framework
-- **Native APIs**: System integration
-- **Small Bundle**: Efficient resource usage
-
-#### Node.js (Express)
-- **Express.js**: Fast, minimalist web framework
-- **Concurrent dev**: Vite + Nodemon
-- **Production**: Static file serving
-
-#### PHP (Laravel)
-- **Laravel 11**: Modern PHP framework
-- **Laravel Vite Plugin**: Seamless frontend integration
-- **Blade Templates**: Server-side rendering option
-
-## 🔧 Development Scripts
-
-### Actix Variant
-- `npm run dev` - Start Vite dev server
-- `npm run watch` - Auto-reload Rust server
-- `npm run build` - Build frontend and backend
-- `npm run lint` - Run ESLint
-
-### Tauri Variant
-- `npm run dev` - Start Vite dev server
-- `npm run tauri-dev` - Start Tauri development
-- `npm run tauri-build` - Build Tauri app
-
-### Vanilla Variant
-- `npm run dev` - Start Vite dev server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-
-### Node.js Variant
-- `npm run dev` - Start both frontend and backend
-- `npm run build` - Build frontend
-- `npm start` - Start production server
-- `npm run dev:frontend` - Start only frontend
-- `npm run dev:backend` - Start only backend
-
-### PHP Variant
-- `npm run dev` - Start Vite dev server
-- `npm run build` - Build frontend
-- `php artisan serve` - Start Laravel server
-
-## 🌟 Features Included
-
-- **🎨 Modern UI**: Clean, responsive design with HeroUI components
-- **🌙 Theme Support**: Dark/light/system theme switching with smooth transitions
-- **📱 Responsive**: Mobile-first responsive design
-- **⚡ Fast Development**: Hot-reload for both frontend and backend
-- **🔒 Type Safety**: Full TypeScript coverage
-- **🏗️ Production Ready**: Optimized builds and deployment configs
-- **🧪 Development Tools**: ESLint, TypeScript compiler, and more
-- **🔄 Zero Duplication**: Single frontend codebase - no copied files between backends
-- **🎯 Smart Generation**: Conditionally includes only what your backend needs
-- **📦 Easy Maintenance**: Update once, all backends benefit from changes
-
-## Cargo Favorites
-You can also add this template to your Cargo favorites for easy access, add the `cargo-generate.toml` in the cargo home directory
-- Windows `%USERPROFILE%\.cargo\`
-- macOS/Linux `~/.cargo/`
-- or create a new file `~/.cargo/cargo-generate.toml` with the following content:
-```toml
-[favorites.tavern]
-description = "A cargo-generate template for creating full-stack applications with TypeScript, React, Vite, and Rust backends."
-git = "https://github.com/Drew-Chase/tavern-cargo-template"
-vcs = "Git"
-init = false
-overwrite = true
-```
-
-## 📝 License
-
-GPL-3.0-or-later
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Template Development
-
-If you want to contribute to the template itself, check out these guides:
-
-- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Complete guide for template developers
-  - Template structure and mechanics
-  - Liquid templating syntax
-  - Adding new backend variants
-  - Modifying shared frontend
-  - Development workflow
-
-- **[TESTING.md](TESTING.md)** - Testing the template generation
-  - Automated testing scripts
-  - Manual testing procedures
-  - Testing individual variants
-  - Validation checklist
-  - CI/CD testing setup
-
-- **[PACKAGING.md](PACKAGING.md)** - Publishing and distribution
-  - Version management
-  - Publishing to GitHub
-  - Release process
-  - Maintenance guidelines
-  - Distribution methods
+- **Modern UI**: Clean, responsive design with HeroUI components
+- **Theme Support**: Dark/light/system theme switching
+- **Responsive**: Mobile-first responsive design
+- **Fast Development**: Hot-reload for both frontend{% if backend != "vanilla" %} and backend{% endif %}
+- **Type Safety**: Full TypeScript coverage
+- **Production Ready**: Optimized builds and deployment configs
 
 ## 📚 Documentation
-
-For more detailed documentation on the frameworks used:
 
 ### Frontend
 - [React Documentation](https://react.dev/)
@@ -418,17 +869,76 @@ For more detailed documentation on the frameworks used:
 - [HeroUI Documentation](https://heroui.com/)
 
 ### Backend
+{% if backend == "actix" -%}
 - [Actix-web Documentation](https://actix.rs/)
+- [Rust Book](https://doc.rust-lang.org/book/)
+{% elsif backend == "tauri" -%}
 - [Tauri Documentation](https://tauri.app/)
+- [Tauri API Reference](https://tauri.app/v1/api/js/)
+{% elsif backend == "nodejs" -%}
 - [Express.js Documentation](https://expressjs.com/)
+- [Node.js Documentation](https://nodejs.org/docs/)
+{% elsif backend == "php" -%}
 - [Laravel Documentation](https://laravel.com/docs)
+- [Laravel Vite](https://laravel.com/docs/vite)
+{% endif -%}
 
-## 🚀 Getting Help
+## 🐛 Troubleshooting
 
-- Check the [Issues](https://github.com/yourusername/tavern-cargo-template/issues) page
-- Read the documentation of the respective frameworks
-- Join the community discussions
+{% if backend == "actix" -%}
+### Rust Compilation Errors
+- Run `cargo clean && cargo build` to rebuild from scratch
+- Ensure Rust is up to date: `rustup update`
+
+### Port Already in Use
+- Change the port in `src-actix/main.rs`
+- Or kill the process using port {{api_port}}
+{% elsif backend == "tauri" -%}
+### Tauri Build Fails
+- Ensure all platform-specific dependencies are installed
+- Check Tauri prerequisites: https://tauri.app/v1/guides/getting-started/prerequisites
+
+### WebView Issues
+- **Windows**: Update WebView2
+- **Linux**: Ensure webkit2gtk is installed
+{% elsif backend == "nodejs" -%}
+### Port Already in Use
+- Change PORT in `.env` file or package.json scripts
+- Or kill the process using port {{api_port}}
+
+### Module Not Found
+- Delete `node_modules/` and `package-lock.json`
+- Run `npm install` again
+{% elsif backend == "php" -%}
+### Composer Install Fails
+- Ensure PHP OpenSSL extension is enabled
+- Check `php.ini` for required extensions
+- Run `php -m` to list loaded extensions
+
+### Laravel Key Error
+- Run `php artisan key:generate`
+
+### Permission Denied
+- Run `chmod -R 755 storage bootstrap/cache`
+- Ensure web server has write access to these directories
+
+### Vite Not Loading
+- Clear Laravel cache: `php artisan cache:clear`
+- Rebuild frontend: `npm run build`
+{% endif -%}
+
+### Frontend Build Issues
+- Clear node modules: `rm -rf node_modules package-lock.json && npm install`
+- Clear Vite cache: `rm -rf node_modules/.vite`
+
+## 📝 License
+
+GPL-3.0-or-later
+
+## 👤 Author
+
+{{authors}}
 
 ---
 
-Happy coding! 🎉
+Built with [TAVERN Stack Template](https://github.com/Drew-Chase/tavern-cargo-template)
