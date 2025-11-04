@@ -4,12 +4,13 @@ exclude = [
     "src-tauri/icons/**/*.png",
     "src-tauri/icons/**/*.icns",
     "src-tauri/icons/**/*.ico",
+    ".cargo-generate-cleanup.rhai",
     ".cargo-generate-cleanup.sh",
     ".cargo-generate-cleanup.bat",
 ]
 
 [hooks]
-post = [".cargo-generate-cleanup.sh"]
+post = [".cargo-generate-cleanup.rhai"]
 
 [placeholders.backend]
 type = "string"
