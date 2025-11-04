@@ -7,6 +7,9 @@ exclude = [
     ".cargo-generate-cleanup.rhai",
     ".cargo-generate-cleanup.sh",
     ".cargo-generate-cleanup.bat",
+    "test-generation.sh",
+    "test-generation.bat",
+    "test-output/**/*",
 ]
 
 [hooks]
