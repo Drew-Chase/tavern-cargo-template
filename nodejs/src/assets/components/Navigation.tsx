@@ -29,7 +29,7 @@ export default function Navigation()
             <NavbarContent>
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden"/>
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">{{window_title}}</p>
+                    <p className="font-bold text-inherit">{{crate_name}}</p>
                 </NavbarBrand>
             </NavbarContent>
 

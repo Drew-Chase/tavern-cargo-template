@@ -1,6 +1,6 @@
 # TAVERN Stack Template
 
-A comprehensive cargo-generate template for creating full-stack applications with **T**ypeScript, **A**ctix/Tauri, **V**ite, **E**mbedded **R**ust, and **N**ode.js.
+A comprehensive cargo-generate template for creating full-stack applications with **T**ypeScript, **A**ctix/Tauri, **V**ite, **E**mbedded **R**ust, and **N**ode.js. Choose from multiple backend options: Actix-web (Rust), Tauri (Desktop), Vanilla (React-only), Node.js/Express, or PHP/Laravel.
 
 ## 🚀 Features
 
@@ -12,23 +12,52 @@ A comprehensive cargo-generate template for creating full-stack applications wit
 
 ## 📦 Template Variants
 
+All templates use the **shared frontend stack**: React + TypeScript + Vite + TailwindCSS + HeroUI with built-in theme switching and responsive design.
+
 ### 🌐 Actix Variant
-- **Backend**: Actix-web server with REST API endpoints
-- **Frontend**: React + TypeScript + Vite + TailwindCSS + HeroUI
-- **Use case**: Web applications, REST APIs, server-side applications
-- **Features**: Static file serving, JSON APIs, embedded frontend
+- **Backend**: Actix-web (Rust) server with REST API endpoints
+- **Use case**: High-performance web applications, REST APIs, server-side applications
+- **Features**: Static file serving, JSON APIs, embedded frontend, blazing-fast performance
+- **Port**: Configurable (default: 1421)
 
 ### 🖥️ Tauri Variant
 - **Backend**: Tauri for cross-platform desktop applications
-- **Frontend**: React + TypeScript + Vite + TailwindCSS + HeroUI
 - **Use case**: Native desktop applications with web technologies
-- **Features**: System integration, native performance, small bundle size
+- **Features**: System integration, native performance, small bundle size, secure
+- **Platform**: Windows, macOS, Linux
+
+### ⚡ Vanilla Variant
+- **Backend**: None (frontend only)
+- **Use case**: SPAs, static sites, frontend-only applications, prototyping
+- **Features**: Pure React application with Vite dev server
+- **Port**: 5173 (Vite default)
+
+### 🟢 Node.js Variant
+- **Backend**: Express.js (Node.js) server with REST API endpoints
+- **Use case**: Node.js web applications, JavaScript-based backends, rapid development
+- **Features**: Express server, API routing, concurrent dev servers, production static serving
+- **Port**: Configurable (default: 3001)
+
+### 🐘 PHP Variant
+- **Backend**: Laravel (PHP) framework with Vite integration
+- **Use case**: PHP web applications, Laravel-based projects, enterprise applications
+- **Features**: Laravel routing, API endpoints, Blade integration, Laravel Vite plugin
+- **Port**: Configurable (default: 8000)
 
 ## 🛠️ Prerequisites
 
-- [Rust](https://rustup.rs/) (latest stable, edition 2024)
+### All Variants
 - [Node.js](https://nodejs.org/) (v18+)
 - [cargo-generate](https://github.com/cargo-generate/cargo-generate)
+
+### Variant-Specific Requirements
+
+#### Actix & Tauri Variants
+- [Rust](https://rustup.rs/) (latest stable, edition 2024)
+
+#### PHP Variant
+- [PHP](https://www.php.net/) (v8.2+)
+- [Composer](https://getcomposer.org/)
 
 ### Install cargo-generate
 
@@ -78,7 +107,8 @@ The template will prompt you for:
 - **Project description**: Description for your project
 - **Author**: Your name or organization
 - **Repository**: Repository URL (optional)
-- **Template variant**: Choose between "actix" or "tauri"
+- **Template variant**: Choose from "actix", "tauri", "vanilla", "nodejs", or "php"
+- **Variant-specific options**: Port numbers, package managers, etc. (varies by template)
 
 ### Project Setup
 
@@ -90,16 +120,16 @@ cd your-project-name
 
 #### For Actix Variant:
 
-1. **Install frontend dependencies:**
+1. **Install dependencies:**
    ```bash
    npm install
    ```
 
-2. **Start development server:**
+2. **Start development servers:**
    ```bash
    # Terminal 1: Start the Rust backend with auto-reload
    npm run watch
-   
+
    # Terminal 2: Start the Vite frontend dev server
    npm run dev
    ```
@@ -111,7 +141,7 @@ cd your-project-name
 
 #### For Tauri Variant:
 
-1. **Install frontend dependencies:**
+1. **Install dependencies:**
    ```bash
    npm install
    ```
@@ -126,57 +156,143 @@ cd your-project-name
    npm run tauri-build
    ```
 
+#### For Vanilla Variant:
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+#### For Node.js Variant:
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development:**
+   ```bash
+   # Runs both frontend and backend concurrently
+   npm run dev
+   ```
+
+3. **Build and start production:**
+   ```bash
+   npm run build
+   npm start
+   ```
+
+#### For PHP Variant:
+
+1. **Install dependencies:**
+   ```bash
+   composer install
+   npm install
+   ```
+
+2. **Setup environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+3. **Start development:**
+   ```bash
+   # Terminal 1: Start Laravel server
+   php artisan serve
+
+   # Terminal 2: Start Vite dev server
+   npm run dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
 ## 📁 Project Structure
+
+### Shared Frontend Structure (All Variants)
+All templates share the same React frontend structure with:
+- **src/assets/css/** - Stylesheets with Roboto font and custom theme
+- **src/assets/components/** - React components (Navigation, etc.)
+- **src/assets/pages/** - Page components (Home, About)
+- **src/assets/providers/** - Context providers (ThemeProvider)
+- **src/main.tsx** - React entry point
+- **Configuration files** - ESLint, TypeScript, TailwindCSS, PostCSS
 
 ### Actix Variant
 ```
 your-project/
-├── src/                    # React frontend source
-│   ├── assets/
-│   │   ├── components/     # React components
-│   │   ├── css/           # Stylesheets
-│   │   ├── pages/         # Page components
-│   │   └── providers/     # Context providers
-│   ├── main.tsx           # React entry point
-│   └── vite-env.d.ts      # Vite type definitions
-├── src-actix/             # Rust backend source
+├── src/                    # Shared React frontend
+├── src-actix/             # Rust backend
 │   ├── main.rs            # Server entry point
-│   ├── lib.rs             # Library modules
-│   ├── build.rs           # Build script
-│   └── *.rs               # API endpoints and utilities
-├── package.json           # Node.js dependencies
-├── Cargo.toml            # Rust dependencies
-├── vite.config.ts        # Vite configuration
-└── tailwind.config.js    # TailwindCSS configuration
+│   ├── lib.rs             # API routes
+│   └── *.rs               # Endpoints
+├── package.json
+├── Cargo.toml
+└── vite.config.ts
 ```
 
 ### Tauri Variant
 ```
 your-project/
-├── src/                    # React frontend source
-│   ├── assets/
-│   │   ├── components/     # React components
-│   │   ├── css/           # Stylesheets
-│   │   ├── pages/         # Page components
-│   │   └── providers/     # Context providers
-│   ├── main.tsx           # React entry point
-│   └── vite-env.d.ts      # Vite type definitions
-├── src-tauri/             # Tauri backend source
+├── src/                    # Shared React frontend
+├── src-tauri/             # Tauri backend
 │   ├── src/
-│   │   ├── main.rs        # Tauri entry point
-│   │   └── lib.rs         # Tauri commands
-│   ├── Cargo.toml         # Tauri dependencies
-│   ├── tauri.conf.json    # Tauri configuration
-│   ├── capabilities/      # Tauri permissions
-│   └── icons/             # Application icons
-├── package.json           # Node.js dependencies
-├── vite.config.ts        # Vite configuration
-└── tailwind.config.js    # TailwindCSS configuration
+│   │   ├── main.rs        # Tauri entry
+│   │   └── lib.rs         # Commands
+│   ├── Cargo.toml
+│   └── tauri.conf.json
+├── package.json
+└── vite.config.ts
+```
+
+### Vanilla Variant
+```
+your-project/
+├── src/                    # Shared React frontend
+├── package.json
+├── vite.config.ts
+└── index.html
+```
+
+### Node.js Variant
+```
+your-project/
+├── src/                    # Shared React frontend
+├── server/                # Express backend
+│   └── index.js           # Server entry
+├── package.json
+└── vite.config.ts
+```
+
+### PHP Variant
+```
+your-project/
+├── src/                    # Shared React frontend
+├── app/                   # Laravel app
+├── routes/                # API routes
+├── resources/views/       # Blade views
+├── public/                # Public assets
+├── composer.json
+├── package.json
+└── vite.config.ts
 ```
 
 ## 🎨 Tech Stack
 
-### Frontend
+### Frontend (Shared Across All Templates)
 - **React 18+**: Modern React with hooks and functional components
 - **TypeScript**: Type-safe JavaScript development
 - **Vite**: Fast build tool and development server
@@ -184,44 +300,73 @@ your-project/
 - **HeroUI**: Beautiful React component library
 - **Framer Motion**: Smooth animations and transitions
 - **Iconify**: Comprehensive icon library
+- **React Router**: Client-side routing
 
-### Backend (Actix)
+### Backend Options
+
+#### Actix (Rust)
 - **Actix-web**: Fast and powerful web framework
 - **Serde**: Serialization/deserialization
 - **Actix-files**: Static file serving
-- **Futures**: Async runtime utilities
+- **Embedded frontend**: Built into binary
 
-### Backend (Tauri)
+#### Tauri (Desktop)
 - **Tauri**: Secure desktop app framework
-- **Native APIs**: System integration capabilities
+- **Native APIs**: System integration
 - **Small Bundle**: Efficient resource usage
+
+#### Node.js (Express)
+- **Express.js**: Fast, minimalist web framework
+- **Concurrent dev**: Vite + Nodemon
+- **Production**: Static file serving
+
+#### PHP (Laravel)
+- **Laravel 11**: Modern PHP framework
+- **Laravel Vite Plugin**: Seamless frontend integration
+- **Blade Templates**: Server-side rendering option
 
 ## 🔧 Development Scripts
 
 ### Actix Variant
-- `npm run dev` - Start Vite development server
-- `npm run build-frontend` - Build React frontend
-- `npm run build-api` - Build Rust backend
-- `npm run build` - Build both frontend and backend
-- `npm run run-api` - Run the Rust server
-- `npm run watch` - Auto-reload Rust server on changes
+- `npm run dev` - Start Vite dev server
+- `npm run watch` - Auto-reload Rust server
+- `npm run build` - Build frontend and backend
 - `npm run lint` - Run ESLint
 
 ### Tauri Variant
-- `npm run dev` - Start Vite development server
-- `npm run build` - Build React frontend
-- `npm run tauri-dev` - Start Tauri development mode
-- `npm run tauri-build` - Build Tauri application
+- `npm run dev` - Start Vite dev server
+- `npm run tauri-dev` - Start Tauri development
+- `npm run tauri-build` - Build Tauri app
+
+### Vanilla Variant
+- `npm run dev` - Start Vite dev server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+### Node.js Variant
+- `npm run dev` - Start both frontend and backend
+- `npm run build` - Build frontend
+- `npm start` - Start production server
+- `npm run dev:frontend` - Start only frontend
+- `npm run dev:backend` - Start only backend
+
+### PHP Variant
+- `npm run dev` - Start Vite dev server
+- `npm run build` - Build frontend
+- `php artisan serve` - Start Laravel server
 
 ## 🌟 Features Included
 
 - **🎨 Modern UI**: Clean, responsive design with HeroUI components
-- **🌙 Theme Support**: Dark/light mode with smooth transitions
+- **🌙 Theme Support**: Dark/light/system theme switching with smooth transitions
 - **📱 Responsive**: Mobile-first responsive design
 - **⚡ Fast Development**: Hot-reload for both frontend and backend
 - **🔒 Type Safety**: Full TypeScript coverage
 - **🏗️ Production Ready**: Optimized builds and deployment configs
 - **🧪 Development Tools**: ESLint, TypeScript compiler, and more
+- **🔄 Shared Frontend**: All templates (except Tauri) use identical React frontend
+- **🎯 Multiple Backends**: Choose the backend that fits your needs
+- **📦 Easy Maintenance**: Update frontend once, propagates to all templates
 
 ## Cargo Favorites
 You can also add this template to your Cargo favorites for easy access, add the `cargo-generate.toml` in the cargo home directory
@@ -253,13 +398,18 @@ GPL-3.0-or-later
 
 For more detailed documentation on the frameworks used:
 
+### Frontend
 - [React Documentation](https://react.dev/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Vite Documentation](https://vitejs.dev/)
 - [TailwindCSS Documentation](https://tailwindcss.com/docs)
 - [HeroUI Documentation](https://heroui.com/)
+
+### Backend
 - [Actix-web Documentation](https://actix.rs/)
 - [Tauri Documentation](https://tauri.app/)
+- [Express.js Documentation](https://expressjs.com/)
+- [Laravel Documentation](https://laravel.com/docs)
 
 ## 🚀 Getting Help
 

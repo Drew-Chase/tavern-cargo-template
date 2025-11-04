@@ -1,0 +1,11 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+ignore = [
+    "actix/**/*",
+    "tauri/**/*",
+    "vanilla/**/*",
+    "php/**/*",
+]
+
+[placeholders]
+api_port = { type = "string", prompt = "Enter the API port", default = "3001" }

@@ -1,3 +1,3 @@
 [template]
 cargo_generate_version = ">=0.10.0"
-sub_templates = ["actix", "tauri"]
+sub_templates = ["actix", "tauri", "vanilla", "nodejs", "php"]
