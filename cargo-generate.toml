@@ -16,6 +16,7 @@ choices = ["actix", "tauri", "vanilla", "nodejs", "php"]
 default = "actix"
 
 [placeholders]
+author = { type = "string", prompt = "Enter your vendor/author name (lowercase, no special chars)", default = "vendor", regex = "^[a-z0-9]([_.-]?[a-z0-9]+)*$" }
 api_port = { type = "string", prompt = "Enter the API port (for actix/nodejs/php)", default = "1421", regex = "^[0-9]+$" }
 
 [conditional.'backend == "tauri"'.placeholders]

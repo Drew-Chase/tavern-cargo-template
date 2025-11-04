@@ -9,3 +9,5 @@ test-output/
 
 # Note: .cargo-generate-cleanup.rhai is NOT ignored because it needs to run as a post-hook
 # It will be automatically removed by cargo-generate after execution
+.claude
+CLAUDE.MD
