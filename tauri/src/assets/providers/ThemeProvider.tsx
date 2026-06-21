@@ -26,10 +26,12 @@ export function ThemeProvider({children}: { children: ReactNode })
     useEffect(() =>
     {
         const tmp = theme == Themes.SYSTEM ? getSystemTheme() : theme;
+        const resolved = tmp === Themes.DARK ? "dark" : "light";
         $("html")
             .removeClass("dark")
             .removeClass("light")
-            .addClass(tmp === Themes.DARK ? "dark" : "light");
+            .addClass(resolved)
+            .attr("data-theme", resolved);
         localStorage.setItem("app-theme", theme.toString());
     }, [theme]);
 
@@ -70,16 +72,19 @@ export function ThemeSwitchComponent()
 {
     const {theme, setTheme} = useTheme();
     return (
-        <Tooltip
-            content={`Enable ${getRealTheme(theme) === "dark" ? "Light" : "Dark"} Mode`}>
-            <Button
-                variant={"light"}
-                className={"min-w-0 h-[2rem] text-tiny"}
-                radius={"sm"}
-                onPress={() => setTheme(prev => getRealTheme(prev) === "dark" ? Themes.LIGHT : Themes.DARK)}
-            >
-                <Icon icon={`mage:${getRealTheme(theme) === "dark" ? "moon" : "sun"}-fill`} height="1rem"/>
-            </Button>
+        <Tooltip delay={0}>
+            <Tooltip.Trigger>
+                <Button
+                    variant={"tertiary"}
+                    className={"min-w-0 h-[2rem] rounded-sm text-xs"}
+                    onPress={() => setTheme(prev => getRealTheme(prev) === "dark" ? Themes.LIGHT : Themes.DARK)}
+                >
+                    <Icon icon={`mage:${getRealTheme(theme) === "dark" ? "moon" : "sun"}-fill`} height="1rem"/>
+                </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+                {`Enable ${getRealTheme(theme) === "dark" ? "Light" : "Dark"} Mode`}
+            </Tooltip.Content>
         </Tooltip>
     );
 }

@@ -11,14 +11,14 @@ export default function Navigation()
 
         <div className={"flex flex-row h-[2.5rem] backdrop-blur-sm sticky top-0 w-full z-[51] backdrop-saturate-150 select-none"} data-tauri-drag-region="">
             <div className={"flex flex-row"}>
-                <p className={"mx-2 mt-1 text-large font-bold select-none"} data-tauri-drag-region="">{{window_title}}</p>
+                <p className={"mx-2 mt-1 text-lg font-bold select-none"} data-tauri-drag-region="">{{window_title}}</p>
             </div>
             <div className={"flex flex-row ml-auto"}>
-                <ButtonGroup className={"h-[2rem]"}>
+                <ButtonGroup className={"h-[2rem]"} variant={"tertiary"}>
                     <ThemeSwitchComponent/>
-                    <Button variant={"light"} className={"min-w-0 h-[2rem] text-[1rem]"} radius={"sm"} onPress={() => appWindow.minimize()}><Icon icon="material-symbols:minimize-rounded"/></Button>
-                    <Button variant={"light"} className={"min-w-0 h-[2rem] text-[.7rem]"} radius={"sm"} onPress={() => appWindow.toggleMaximize()}><Icon icon="material-symbols:square-outline-rounded"/></Button>
-                    <Button variant={"light"} color={"danger"} className={"min-w-0 h-[2rem] text-[1rem]"} radius={"sm"} onPress={() => appWindow.close()}><Icon icon="material-symbols:close-rounded"/></Button>
+                    <Button variant={"tertiary"} className={"min-w-0 h-[2rem] rounded-sm text-[1rem]"} onPress={() => appWindow.minimize()}><Icon icon="material-symbols:minimize-rounded"/></Button>
+                    <Button variant={"tertiary"} className={"min-w-0 h-[2rem] rounded-sm text-[.7rem]"} onPress={() => appWindow.toggleMaximize()}><Icon icon="material-symbols:square-outline-rounded"/></Button>
+                    <Button variant={"danger-soft"} className={"min-w-0 h-[2rem] rounded-sm text-[1rem]"} onPress={() => appWindow.close()}><Icon icon="material-symbols:close-rounded"/></Button>
                 </ButtonGroup>
             </div>
         </div>
@@ -26,52 +26,68 @@ export default function Navigation()
 }
 {% else %}
 import React from "react";
-import {Link, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle} from "@heroui/react";
+import {NavLink} from "react-router-dom";
 import {ThemeSwitchComponent} from "../providers/ThemeProvider.tsx";
 
 export default function Navigation()
 {
-
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const pages = {
-        "Home": "/",
-        "About": "/about"
+        "Home": "/"
     };
-    const menuItems = Object.keys(pages).map((item, index) =>
-    {
-        const url = Object.values(pages)[index];
-        const isCurrentPage = window.location.pathname === url;
-        return (
-            <NavbarMenuItem key={`${item}-${index}`}>
-                <Link href={url} color={isCurrentPage ? "primary" : "foreground"} aria-current="page" size="lg" className="w-full">
-                    {item}
-                </Link>
-            </NavbarMenuItem>
-        );
-    });
 
+    const menuItems = (onNavigate?: () => void) =>
+        Object.entries(pages).map(([item, url]) => (
+            <li key={item}>
+                <NavLink
+                    to={url}
+                    end
+                    onClick={onNavigate}
+                    className={({isActive}) => `link block w-full py-2 ${isActive ? "text-accent" : "text-foreground"}`}
+                >
+                    {item}
+                </NavLink>
+            </li>
+        ));
 
     return (
-        <Navbar onMenuOpenChange={setIsMenuOpen}>
-            <NavbarContent>
-                <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden"/>
-                <NavbarBrand>
+        <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
+            <header className="flex h-16 items-center justify-between px-6">
+                <div className="flex items-center gap-4">
+                    <button
+                        className="sm:hidden"
+                        onClick={() => setIsMenuOpen(prev => !prev)}
+                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={isMenuOpen}
+                    >
+                        <span className="sr-only">Menu</span>
+                        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {isMenuOpen ? (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+                            ) : (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
+                            )}
+                        </svg>
+                    </button>
                     <p className="font-bold text-inherit">{{window_title}}</p>
-                </NavbarBrand>
-            </NavbarContent>
+                </div>
 
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                {menuItems}
-            </NavbarContent>
-            <NavbarContent justify="end">
-                <NavbarItem>
+                <ul className="hidden items-center gap-4 sm:flex">
+                    {menuItems()}
+                </ul>
+
+                <div className="flex items-center gap-4">
                     <ThemeSwitchComponent/>
-                </NavbarItem>
-            </NavbarContent>
+                </div>
+            </header>
 
-            <NavbarMenu>
-                {menuItems}
-            </NavbarMenu>
-        </Navbar>);
+            {isMenuOpen && (
+                <div className="border-t border-separator sm:hidden">
+                    <ul className="flex flex-col gap-2 p-4">
+                        {menuItems(() => setIsMenuOpen(false))}
+                    </ul>
+                </div>
+            )}
+        </nav>);
 }
 {% endif %}

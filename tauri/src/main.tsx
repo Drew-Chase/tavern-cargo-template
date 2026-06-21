@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import $ from "jquery";
 
@@ -7,7 +7,7 @@ import "./assets/css/index.css";
 import Home from "./assets/pages/Home.tsx";
 import Navigation from "./assets/components/Navigation.tsx";
 import {ThemeProvider} from "./assets/providers/ThemeProvider.tsx";
-import {HeroUIProvider, ToastProvider} from "@heroui/react";
+import {Toast} from "@heroui/react";
 
 
 ReactDOM.createRoot($("#root")[0]!).render(
@@ -22,20 +22,10 @@ ReactDOM.createRoot($("#root")[0]!).render(
 
 export function MainContentRenderer()
 {
-    const navigate = useNavigate();
     $(window).on("contextmenu", e => e.preventDefault());
     return (
-        <HeroUIProvider navigate={navigate}>
-            {% raw %}
-            <ToastProvider
-                placement={"bottom-right"}
-                toastProps={{
-                    shouldShowTimeoutProgress: true,
-                    timeout: 3000,
-                    variant: "flat"
-                }}
-            />
-            {% endraw %}
+        <>
+            <Toast.Provider placement={"bottom end"}/>
             <main className={"flex flex-col p-0 m-0"}>
                 <Navigation/>
                 {% if custom_chrome == true %}
@@ -56,6 +46,6 @@ export function MainContentRenderer()
                 </div>
                 {% endif %}
             </main>
-        </HeroUIProvider>
+        </>
     );
 }
