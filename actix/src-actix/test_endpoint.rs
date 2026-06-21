@@ -1,5 +1,5 @@
 use actix_web::{get, web, HttpResponse, Responder};
-use crate::http_error::Result;
+use crate::util::http_error::Result;
 use serde_json::json;
 /// Handles requests to check the server status.
 ///

@@ -1,27 +1,20 @@
 use actix_web::{middleware, web, App, HttpResponse, HttpServer};
 use serde_json::json;
-use log::*;
-use anyhow::Result;
-use crate::asset_endpoint::AssetsAppConfig;
+use crate::util::asset_endpoint::AssetsAppConfig;
 use vite_actix::start_vite_server;
+use tracing::*;
+use color_eyre::Result;
 
-mod asset_endpoint;
 mod test_endpoint;
-mod http_error;
+mod util;
 
 pub static DEBUG: bool = cfg!(debug_assertions);
 const PORT: u16 = {{api_port}};
 
 
 pub async fn run() -> Result<()> {
-	pretty_env_logger::env_logger::builder()
-		.filter_level(if DEBUG {
-			LevelFilter::Debug
-		} else {
-			LevelFilter::Info
-		})
-		.format_timestamp(None)
-		.init();
+	util::logging::setup_logging()?;
+	color_eyre::install()?;
 
 	let server = HttpServer::new(move || {
 		App::new()

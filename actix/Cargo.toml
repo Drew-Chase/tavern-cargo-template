@@ -3,7 +3,6 @@ name = "{{crate_name}}"
 version = "0.0.0"
 edition = "2024"
 authors = ["{{authors}}"]
-build = "src-actix/build.rs"
 
 [[bin]]
 name = "{{crate_name}}"
@@ -17,22 +16,26 @@ crate-type = ["lib"]
 [dependencies]
 actix-web = { version = ">=4.9.0" }
 actix-files = { version = ">=0.6.6" }
-futures-util = ">=0.3.30"
 serde = { version = ">=1.0.208", features = ["derive"] }
 serde_json = { version = ">=1.0.125" }
-pretty_env_logger = ">=0.5.0"
 include_dir = ">=0.7.4"
 walkdir = ">=2.5.0"
-awc = ">=3.1.0"
-log = ">=0.4.22"
-anyhow = ">=1.0.95"
 thiserror = ">=2.0.11"
 vite-actix = ">=0.2.5"
+
+tracing = { version = "0.1.44", features = ["max_level_trace"] }
+tracing-subscriber = { version = "0.3.19", features = ["json", "env-filter"] }
+color-eyre = { version = "0.6.5", features = ["tracing-error", "track-caller"] }
+
+chrono = { version = "0.4.45" }
+tar = "0.4.43"
+xz2 = "0.1.7"
 
 
 [build-dependencies]
 include_dir = "0.7.4"
 walkdir = "2.5.0"
+chrono = { version = "0.4.45" }
 
 
 [profile.release]
