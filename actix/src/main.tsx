@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ReactDOM from "react-dom/client";
 
 import "./assets/css/index.css";
@@ -7,7 +7,6 @@ import Home from "./assets/pages/Home.tsx";
 import About from "./assets/pages/About.tsx";
 import Navigation from "./assets/components/Navigation.tsx";
 import {ThemeProvider} from "./assets/providers/ThemeProvider.tsx";
-import {HeroUIProvider} from "@heroui/react";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -22,9 +21,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 export function MainContentRenderer()
 {
-    const navigate = useNavigate();
     return (
-        <HeroUIProvider navigate={navigate}>
+        <>
             <Navigation/>
             <Routes>
                 <Route>
@@ -32,6 +30,6 @@ export function MainContentRenderer()
                     <Route path="/about" element={<About/>}/>
                 </Route>
             </Routes>
-        </HeroUIProvider>
+        </>
     );
 }
