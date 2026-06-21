@@ -4,9 +4,9 @@ A comprehensive cargo-generate template for creating full-stack applications wit
 
 ## 🚀 Features
 
-- **Modern Frontend Stack**: React 18+ with TypeScript, Vite, and TailwindCSS
-- **Component Library**: HeroUI React components for beautiful UIs
-- **Theme Support**: Built-in dark/light theme switching with Framer Motion animations
+- **Modern Frontend Stack**: React 19 with TypeScript, Vite, and TailwindCSS v4
+- **Component Library**: HeroUI v3 React components for beautiful UIs
+- **Theme Support**: Built-in dark/light theme switching
 - **Development Tools**: ESLint, TypeScript, and hot-reload development
 - **Production Ready**: Optimized builds for both frontend and backend
 
@@ -146,8 +146,7 @@ your-project/
 │   └── *.rs               # API endpoints and utilities
 ├── package.json           # Node.js dependencies
 ├── Cargo.toml            # Rust dependencies
-├── vite.config.ts        # Vite configuration
-└── tailwind.config.js    # TailwindCSS configuration
+└── vite.config.ts        # Vite configuration (TailwindCSS v4 plugin)
 ```
 
 ### Tauri Variant
@@ -170,19 +169,17 @@ your-project/
 │   ├── capabilities/      # Tauri permissions
 │   └── icons/             # Application icons
 ├── package.json           # Node.js dependencies
-├── vite.config.ts        # Vite configuration
-└── tailwind.config.js    # TailwindCSS configuration
+└── vite.config.ts        # Vite configuration (TailwindCSS v4 plugin)
 ```
 
 ## 🎨 Tech Stack
 
 ### Frontend
-- **React 18+**: Modern React with hooks and functional components
+- **React 19**: Modern React with hooks and functional components
 - **TypeScript**: Type-safe JavaScript development
 - **Vite**: Fast build tool and development server
-- **TailwindCSS**: Utility-first CSS framework
-- **HeroUI**: Beautiful React component library
-- **Framer Motion**: Smooth animations and transitions
+- **TailwindCSS v4**: Utility-first CSS framework (CSS-first config)
+- **HeroUI v3**: Beautiful React component library built on React Aria
 - **Iconify**: Comprehensive icon library
 
 ### Backend (Actix)
