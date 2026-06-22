@@ -8,7 +8,11 @@ import Home from "./assets/pages/Home.tsx";
 import Navigation from "./assets/components/Navigation.tsx";
 import {ThemeProvider} from "./assets/providers/ThemeProvider.tsx";
 import {Toast} from "@heroui/react";
+import {attachConsoleToTracing} from "./util/logger.ts";
 
+// Route all console output and uncaught errors through the Rust tracing
+// pipeline so frontend logs land in the same rolling log files as native logs.
+attachConsoleToTracing();
 
 ReactDOM.createRoot($("#root")[0]!).render(
     <React.StrictMode>
