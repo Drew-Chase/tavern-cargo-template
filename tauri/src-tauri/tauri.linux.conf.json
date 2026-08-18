@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schema.tauri.app/config/2"{% if custom_chrome == true %},
+  "app": {
+    "windows": [
+      {
+        "decorations": true
+      }
+    ]
+  }
+  {% endif %}
+}

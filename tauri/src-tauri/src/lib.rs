@@ -1,35 +1,31 @@
-use tracing::{debug, error, info, trace, warn};
+use tracing::{ info};
+use util::logging::log;
 
 mod util;
 
 pub static DEBUG: bool = cfg!(debug_assertions);
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
-/// Bridge for webview-side logging.
-///
-/// The frontend logger (see `src/util/logger.ts`) invokes this command so that
-/// `console.*` / `log.*` calls in React are re-emitted as `tracing` events
-/// under the `frontend` target and land in the same rolling log files as the
-/// Rust-side logs.
-#[tauri::command]
-fn log(level: String, message: String, location: Option<String>) {
-    match level.as_str() {
-        "trace" => trace!(target: "frontend", location = ?location, "{message}"),
-        "debug" => debug!(target: "frontend", location = ?location, "{message}"),
-        "info" => info!(target: "frontend", location = ?location, "{message}"),
-        "warn" => warn!(target: "frontend", location = ?location, "{message}"),
-        "error" => error!(target: "frontend", location = ?location, "{message}"),
-        _ => info!(target: "frontend", location = ?location, "{message}"),
+// webkit2gtk defaults to a DMA-BUF renderer that only supports X11. Under a
+// native Wayland session (as opposed to XWayland) this produces a blank or
+// black window on many GPU drivers, most notably NVIDIA. Disabling it makes
+// webkit fall back to a renderer that works on both X11 and Wayland. This
+// must be set before the webview is created, so it runs first in `run()`.
+#[cfg(target_os = "linux")]
+fn fix_linux_wayland_rendering() {
+    if std::env::var_os("WAYLAND_DISPLAY").is_some() {
+        // SAFETY: called once, single-threaded, before any webview/window is
+        // created, so there is no concurrent access to the environment.
+        unsafe {
+            std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+        }
     }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    #[cfg(target_os = "linux")]
+    fix_linux_wayland_rendering();
+
     if let Err(e) = util::logging::setup_logging() {
         eprintln!("failed to initialise logging: {e}");
     }
@@ -44,7 +40,7 @@ pub fn run() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![greet, log])
+        .invoke_handler(tauri::generate_handler![ log])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
