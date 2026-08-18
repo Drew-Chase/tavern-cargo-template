@@ -1,12 +1,13 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import $ from "jquery";
 
-import "./assets/css/index.css";
-import Home from "./assets/pages/Home.tsx";
-import Navigation from "./assets/components/Navigation.tsx";
-import {ThemeProvider} from "./assets/providers/ThemeProvider.tsx";
+import "./css/index.css";
+import AppShell from "./components/shell/AppShell.tsx";
+import Home from "./pages/Home.tsx";
+import Settings from "./pages/Settings.tsx";
+import NotFound from "./pages/NotFound.tsx";
+import {ThemeProvider} from "./providers/ThemeProvider.tsx";
 import {Toast} from "@heroui/react";
 import {attachConsoleToTracing} from "./util/logger.ts";
 
@@ -14,42 +15,23 @@ import {attachConsoleToTracing} from "./util/logger.ts";
 // pipeline so frontend logs land in the same rolling log files as native logs.
 attachConsoleToTracing();
 
-ReactDOM.createRoot($("#root")[0]!).render(
+// Disable the browser's default right-click menu; it has no relevance
+// inside a native desktop shell.
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <BrowserRouter>
             <ThemeProvider>
-                <MainContentRenderer/>
+                <Toast.Provider placement={"bottom end"}/>
+                <Routes>
+                    <Route element={<AppShell/>}>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
+                        <Route path="*" element={<NotFound/>}/>
+                    </Route>
+                </Routes>
             </ThemeProvider>
         </BrowserRouter>
     </React.StrictMode>
 );
-
-export function MainContentRenderer()
-{
-    $(window).on("contextmenu", e => e.preventDefault());
-    return (
-        <>
-            <Toast.Provider placement={"bottom end"}/>
-            <main className={"flex flex-col p-0 m-0"}>
-                <Navigation/>
-                {% if custom_chrome == true %}
-                <div className={"flex flex-row w-full max-h-[calc(100vh-2.5rem)] h-screen overflow-y-hidden p-0 m-0"} data-tauri-drag-region="">
-                    <Routes>
-                        <Route>
-                            <Route path="/" element={<Home/>}/>
-                        </Route>
-                    </Routes>
-                </div>
-                {% else %}
-                <div className={"flex flex-row w-full h-screen p-0 m-0"}>
-                    <Routes>
-                        <Route>
-                            <Route path="/" element={<Home/>}/>
-                        </Route>
-                    </Routes>
-                </div>
-                {% endif %}
-            </main>
-        </>
-    );
-}
