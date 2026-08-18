@@ -1,6 +1,5 @@
 {% raw %}
 import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
-import $ from "jquery";
 import {Button, Tooltip} from "@heroui/react";
 import {Icon} from "@iconify-icon/react";
 
@@ -27,11 +26,10 @@ export function ThemeProvider({children}: { children: ReactNode })
     {
         const tmp = theme == Themes.SYSTEM ? getSystemTheme() : theme;
         const resolved = tmp === Themes.DARK ? "dark" : "light";
-        $("html")
-            .removeClass("dark")
-            .removeClass("light")
-            .addClass(resolved)
-            .attr("data-theme", resolved);
+        const html = document.documentElement;
+        html.classList.remove("dark", "light");
+        html.classList.add(resolved);
+        html.setAttribute("data-theme", resolved);
         localStorage.setItem("app-theme", theme.toString());
     }, [theme]);
 
